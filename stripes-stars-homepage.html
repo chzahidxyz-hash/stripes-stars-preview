@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Stripes Stars LLC — Marketing & AI Agency | Austin, TX</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #C9A84C;
+  --gold-light: #D9B85C;
+  --gold-dim: rgba(201,168,76,0.12);
+  --blue: #2A6BE8;
+  --blue-dim: rgba(42,107,232,0.12);
+  --white: #FFFFFF;
+  --gray: #8899BB;
+  --green: #22C55E;
+  --bg1: #060D1A;
+  --bg2: #0A1628;
+  --card: #0D1E38;
+  --card2: #112040;
+  --deep: #030810;
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-gold: rgba(201,168,76,0.3);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg1);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* === UTILITIES === */
+.dot-pattern {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.gold { color: var(--gold); }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 16px; border-radius: 999px;
+  background: rgba(201,168,76,0.09); border: 1px solid rgba(201,168,76,0.35);
+  color: var(--gold); font-size: 11px; font-weight: 600; letter-spacing: 1.6px;
+  text-transform: uppercase; margin-bottom: 22px;
+}
+.fade-up {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.08s; }
+.d2 { transition-delay: 0.16s; }
+.d3 { transition-delay: 0.24s; }
+.d4 { transition-delay: 0.32s; }
+.d5 { transition-delay: 0.40s; }
+
+@keyframes shimmer {
+  0%, 100% { background-position: -200% center; }
+  50% { background-position: 200% center; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, var(--gold) 0%, #F0D080 40%, var(--gold) 60%, #B8922A 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+}
+@keyframes bounce-arr {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* === NAV === */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: 70px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 52px;
+  background: rgba(10,22,40,0.88);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--gold);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo svg { width: 26px; height: 26px; flex-shrink: 0; }
+.logo-txt { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 800; }
+.logo-txt .w { color: #fff; }
+.logo-txt .g { color: var(--gold); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  color: var(--gray); text-decoration: none;
+  font-size: 14px; font-weight: 500; transition: color .22s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-btn {
+  background: var(--gold); color: var(--bg1);
+  font-weight: 700; font-size: 13.5px;
+  padding: 10px 22px; border-radius: 8px;
+  text-decoration: none; white-space: nowrap;
+  transition: background .22s, box-shadow .22s;
+}
+.nav-btn:hover { background: var(--gold-light); box-shadow: 0 0 18px rgba(201,168,76,0.45); }
+.hamburger {
+  display: none; background: none; border: none;
+  cursor: pointer; flex-direction: column; gap: 5px; padding: 4px;
+}
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--gold); border-radius: 2px; transition: .3s; }
+.mob-menu {
+  display: none; position: fixed; top: 70px; left: 0; right: 0; z-index: 999;
+  background: rgba(6,13,26,0.97); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--gold);
+  flex-direction: column; gap: 0; padding: 8px 0 16px;
+}
+.mob-menu a {
+  color: var(--gray); text-decoration: none; font-size: 16px; font-weight: 500;
+  padding: 14px 32px; display: block; transition: color .2s, background .2s;
+}
+.mob-menu a:hover { color: var(--gold); background: rgba(201,168,76,0.04); }
+.mob-menu .nav-btn { margin: 12px 32px 0; text-align: center; display: block; }
+
+/* === HERO === */
+.hero {
+  min-height: 100vh; position: relative; overflow: hidden;
+  background: var(--bg1);
+  display: flex; align-items: center; padding: 120px 52px 80px;
+}
+.hero-bg-blue {
+  position: absolute; bottom: -120px; right: -120px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: rgba(42,107,232,0.06); filter: blur(100px);
+  pointer-events: none; z-index: 0;
+  animation: floatY 12s ease-in-out infinite;
+}
+.hero-bg-gold {
+  position: absolute; top: -100px; left: -80px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: rgba(201,168,76,0.05); filter: blur(80px);
+  pointer-events: none; z-index: 0;
+}
+.hero-inner {
+  max-width: 1280px; width: 100%; margin: 0 auto;
+  display: grid; grid-template-columns: 58% 42%;
+  gap: 48px; align-items: center; position: relative; z-index: 1;
+}
+/* LEFT */
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 18px; border-radius: 999px;
+  border: 1px solid rgba(201,168,76,0.4);
+  background: rgba(201,168,76,0.07);
+  color: var(--gold); font-size: 12.5px; font-weight: 600;
+  letter-spacing: .3px; margin-bottom: 28px;
+}
+.hero-h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(42px, 5.2vw, 68px);
+  font-weight: 800; line-height: 1.05; margin-bottom: 24px;
+}
+.hero-sub {
+  font-size: 18px; color: var(--gray);
+  max-width: 520px; line-height: 1.72; margin-bottom: 36px;
+}
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px; }
+.btn-primary {
+  background: var(--gold); color: var(--bg1);
+  font-weight: 700; font-size: 16px;
+  padding: 14px 30px; border-radius: 8px;
+  text-decoration: none; display: inline-block;
+  transition: all .25s; border: none; cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--gold-light);
+  box-shadow: 0 6px 28px rgba(201,168,76,0.45);
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  background: transparent; color: #fff;
+  font-weight: 600; font-size: 16px;
+  padding: 14px 28px; border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.25);
+  text-decoration: none; display: inline-block;
+  transition: all .25s;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.5); }
+.trust-row { display: flex; gap: 22px; flex-wrap: wrap; }
+.trust-item { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--gray); }
+.trust-item .ck { color: var(--gold); font-size: 13px; font-weight: 700; }
+
+/* RIGHT — DASHBOARD */
+.hero-right {
+  position: relative; min-height: 480px;
+  display: flex; align-items: center; justify-content: center;
+}
+.dash-card {
+  width: 100%; max-width: 380px;
+  background: rgba(13,30,56,0.82);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201,168,76,0.35); border-radius: 20px;
+  padding: 28px 26px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.08);
+  animation: floatY 6s ease-in-out infinite;
+  position: relative; z-index: 2;
+}
+.dash-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.dash-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+.live-badge { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--green); }
+.live-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+  animation: pulse-dot 2s infinite;
+}
+.stats-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+.stat-box {
+  background: rgba(6,13,26,0.55); border-radius: 12px; padding: 14px 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.stat-box .num { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: var(--gold); line-height: 1; }
+.stat-box .lbl { font-size: 11px; color: var(--gray); margin-top: 4px; line-height: 1.35; }
+.bar-chart { display: flex; align-items: flex-end; gap: 5px; height: 46px; margin-bottom: 16px; padding: 0 2px; }
+.bar { flex: 1; background: var(--gold); border-radius: 3px 3px 0 0; opacity: 0.75; transition: opacity .2s; }
+.bar:hover { opacity: 1; }
+.dash-foot { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 14px; }
+.ai-row { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.ai-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse-dot 2s infinite; }
+.follow-txt { font-size: 12px; color: var(--gray); }
+
+/* MINI CARDS */
+.mc {
+  position: absolute; z-index: 4;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px; padding: 12px 16px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+  white-space: nowrap;
+}
+.mc .mc-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.mc .mc-sub { font-size: 11px; color: var(--gray); }
+.mc .mc-sub.gr { color: var(--green); }
+.mc1 { top: 0; right: -18px; background: rgba(13,30,56,0.9); border: 1px solid rgba(42,107,232,0.55); }
+.mc2 { bottom: 60px; left: -24px; background: rgba(13,30,56,0.9); border: 1px solid rgba(201,168,76,0.5); }
+.mc3 { top: 70px; left: -24px; background: rgba(13,30,56,0.88); border: 1px solid rgba(255,255,255,0.12); }
+
+/* SCROLL HINT */
+.scroll-hint {
+  position: absolute; bottom: 28px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.22); font-size: 11.5px; letter-spacing: .4px;
+  animation: bounce-arr 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+.scroll-hint svg { display: block; }
+
+/* === STATS BAR === */
+.stats-bar {
+  background: rgba(201,168,76,0.05);
+  border-top: 1px solid rgba(201,168,76,0.22);
+  border-bottom: 1px solid rgba(201,168,76,0.22);
+  padding: 36px 52px;
+}
+.stats-bar-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: stretch; justify-content: space-around;
+  flex-wrap: wrap; gap: 0;
+}
+.sb-item { flex: 1; min-width: 130px; text-align: center; padding: 0 16px; position: relative; }
+.sb-item:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 10%; height: 80%;
+  width: 1px; background: rgba(201,168,76,0.18);
+}
+.sb-num { font-family: 'Syne', sans-serif; font-size: 34px; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 6px; }
+.sb-lbl { font-size: 13px; color: var(--gray); line-height: 1.4; }
+
+/* === SECTIONS SHARED === */
+.section { padding: 96px 52px; }
+.section.bg2 { background: var(--bg2); }
+.section.bg1 { background: var(--bg1); }
+.sec-inner { max-width: 1200px; margin: 0 auto; }
+.sec-header { text-align: center; max-width: 700px; margin: 0 auto 56px; }
+.sec-h {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 800; line-height: 1.18; margin-bottom: 16px;
+}
+.sec-sub { font-size: 18px; color: var(--gray); line-height: 1.72; }
+
+/* === PROBLEM === */
+.prob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 52px; }
+.prob-card {
+  background: var(--card); border-radius: 20px; padding: 36px 32px;
+  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  cursor: default;
+}
+.prob-card.blue { border: 1px solid rgba(42,107,232,0.35); }
+.prob-card.gld  { border: 1px solid rgba(201,168,76,0.3); }
+.prob-card:hover { transform: translateY(-5px); }
+.prob-card.blue:hover { border-color: rgba(42,107,232,0.7); box-shadow: 0 20px 52px rgba(42,107,232,0.1); }
+.prob-card.gld:hover  { border-color: rgba(201,168,76,0.6); box-shadow: 0 20px 52px rgba(201,168,76,0.08); }
+.icon-circle {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+}
+.ic-blue { background: rgba(42,107,232,0.15); }
+.ic-gold { background: rgba(201,168,76,0.12); }
+.prob-label { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.prob-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+.prob-body { font-size: 15px; color: var(--gray); line-height: 1.72; margin-bottom: 22px; }
+.prob-tag { font-size: 14px; font-weight: 600; }
+.prob-tag.bl { color: var(--blue); }
+.prob-tag.gl { color: var(--gold); }
+.prob-statement { text-align: center; max-width: 700px; margin: 0 auto; }
+.prob-stat-txt { font-family: 'Syne', sans-serif; font-size: clamp(20px, 2.5vw, 28px); font-weight: 700; line-height: 1.5; margin-bottom: 14px; }
+.prob-stat-sub { font-size: 15px; color: var(--gray); }
+
+/* === PROCESS === */
+.steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; }
+.steps-row::before {
+  content: ''; position: absolute; top: 50px;
+  left: calc(16.67% + 14px); right: calc(16.67% + 14px);
+  height: 2px; border-top: 2px dashed rgba(201,168,76,0.28);
+  z-index: 0; pointer-events: none;
+}
+.step-card {
+  background: var(--card); border: 1px solid rgba(201,168,76,0.22);
+  border-radius: 20px; padding: 36px 28px;
+  transition: transform .28s, border-color .28s, box-shadow .28s;
+  position: relative; z-index: 1;
+}
+.step-card:hover { transform: translateY(-5px); border-color: rgba(201,168,76,0.55); box-shadow: 0 20px 52px rgba(0,0,0,0.3); }
+.step-top { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.step-num-badge {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--gold); color: var(--bg1);
+  font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step-icon { font-size: 26px; }
+.step-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.step-body { font-size: 15px; color: var(--gray); line-height: 1.72; }
+.step-note { font-size: 14px; color: var(--green); font-weight: 600; margin-top: 16px; }
+
+/* === WHY === */
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.why-card {
+  background: var(--card); border: 1px solid var(--border-subtle);
+  border-radius: 16px; padding: 28px 26px;
+  transition: border-color .28s, transform .28s, box-shadow .28s;
+}
+.why-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.28); }
+.why-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+.why-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.why-desc { font-size: 14.5px; color: var(--gray); line-height: 1.68; }
+
+/* === TESTIMONIALS === */
+.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 36px; }
+.testi-card {
+  background: var(--card); border: 1px solid var(--border-subtle);
+  border-radius: 20px; padding: 32px; position: relative; overflow: hidden;
+  transition: border-color .28s, transform .28s;
+}
+.testi-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-4px); }
+.stars { display: flex; gap: 3px; margin-bottom: 16px; }
+.stars span { color: var(--gold); font-size: 16px; }
+.testi-quote { font-size: 15.5px; color: var(--gray); font-style: italic; line-height: 1.72; min-height: 100px; margin-bottom: 20px; }
+.testi-divider { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 18px; }
+.testi-bottom { display: flex; align-items: center; gap: 12px; }
+.avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--card2); border: 1px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px;
+  color: var(--gold); flex-shrink: 0;
+}
+.testi-name { font-size: 15px; font-weight: 600; }
+.testi-biz { font-size: 13px; color: var(--gray); }
+.deco-quote {
+  position: absolute; bottom: 18px; right: 20px;
+  font-size: 72px; color: var(--gold); opacity: .13;
+  font-family: Georgia, serif; line-height: 1; pointer-events: none;
+  user-select: none;
+}
+/* Testi stats strip */
+.testi-strip {
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 16px; padding: 32px 40px;
+  display: flex; align-items: center; justify-content: space-around;
+  flex-wrap: wrap; gap: 20px;
+}
+.ts-item { text-align: center; flex: 1; min-width: 130px; position: relative; padding: 0 16px; }
+.ts-item:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 10%; height: 80%;
+  width: 1px; background: rgba(201,168,76,0.15);
+}
+.ts-num { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--gold); margin-bottom: 4px; }
+.ts-lbl { font-size: 13px; color: var(--gray); }
+
+/* === CTA === */
+.cta-section {
+  background: var(--bg2); border-top: 2px solid var(--gold);
+  padding: 100px 52px; text-align: center; position: relative; overflow: hidden;
+}
+.cta-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+.cta-h {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 800; line-height: 1.14; margin-bottom: 20px;
+}
+.cta-body { font-size: 18px; color: var(--gray); max-width: 600px; margin: 0 auto 40px; line-height: 1.72; }
+.cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+.btn-primary-lg {
+  background: var(--gold); color: var(--bg1);
+  font-weight: 700; font-size: 18px;
+  padding: 18px 44px; border-radius: 8px;
+  text-decoration: none; display: inline-block;
+  transition: all .25s;
+}
+.btn-primary-lg:hover { background: var(--gold-light); box-shadow: 0 0 40px rgba(201,168,76,0.55); transform: translateY(-2px); }
+.btn-ghost-lg {
+  background: transparent; color: #fff;
+  font-weight: 600; font-size: 16px;
+  padding: 18px 32px; border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.35);
+  text-decoration: none; display: inline-block;
+  transition: all .25s;
+}
+.btn-ghost-lg:hover { background: rgba(255,255,255,0.07); border-color: #fff; }
+.cta-contacts { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+.cta-c { font-size: 14px; color: var(--gray); transition: color .2s; cursor: default; }
+.cta-c:hover { color: #fff; }
+
+/* === FOOTER === */
+footer {
+  background: var(--deep);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 60px 52px 32px;
+}
+.footer-grid {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
+  gap: 48px; margin-bottom: 48px;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-bottom: 12px; }
+.footer-tagline { font-size: 14px; color: var(--gray); max-width: 240px; line-height: 1.65; margin-bottom: 22px; }
+.soc-row { display: flex; gap: 10px; }
+.soc-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gray); font-size: 12px; font-weight: 700;
+  text-decoration: none; transition: all .25s; cursor: pointer;
+  font-style: normal;
+}
+.soc-btn:hover { background: var(--gold); color: var(--bg1); border-color: var(--gold); }
+.f-col-title { font-size: 13px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 16px; }
+.f-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.f-links a { font-size: 14px; color: var(--gray); text-decoration: none; transition: color .22s; }
+.f-links a:hover { color: var(--gold); }
+.f-contact-list { display: flex; flex-direction: column; gap: 10px; }
+.f-contact-item { font-size: 14px; color: var(--gray); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.footer-bottom {
+  max-width: 1200px; margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 24px; display: flex;
+  justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+.footer-bottom p { font-size: 13px; color: var(--gray); }
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  nav { padding: 0 24px; }
+  .nav-links, .nav-btn.desktop { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 120px 24px 70px; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right { min-height: 420px; }
+  .section { padding: 70px 24px; }
+  .stats-bar { padding: 36px 24px; }
+  .prob-grid { grid-template-columns: 1fr; }
+  .steps-row { grid-template-columns: 1fr; gap: 16px; }
+  .steps-row::before { display: none; }
+  .why-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; padding: 0 24px; margin: 0 0 40px; }
+  footer { padding: 48px 24px 24px; }
+  .cta-section { padding: 80px 24px; }
+}
+@media (max-width: 640px) {
+  .hero-right { display: none; }
+  .hero-btns { flex-direction: column; }
+  .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+  .scroll-hint { display: none; }
+  .stats-bar-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .sb-item::after { display: none !important; }
+  .cta-btns { flex-direction: column; align-items: center; }
+  .btn-primary-lg, .btn-ghost-lg { width: 100%; text-align: center; }
+  .footer-grid { grid-template-columns: 1fr; padding: 0; }
+  .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+  .testi-strip { gap: 28px; }
+  .ts-item::after { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="13,1.5 16.2,9.8 25,10.7 18.8,16.5 20.7,25.2 13,20.8 5.3,25.2 7.2,16.5 1,10.7 9.8,9.8" fill="#C9A84C"/>
+    </svg>
+    <span class="logo-txt"><span class="w">Stripes</span><span class="g">Stars</span></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">AI Solutions</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+
+  <a href="#" class="nav-btn desktop">Get Free Audit</a>
+
+  <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMob()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+  <a href="#" class="active">Home</a>
+  <a href="#">Services</a>
+  <a href="#">AI Solutions</a>
+  <a href="#">Pricing</a>
+  <a href="#">About Us</a>
+  <a href="#">Contact</a>
+  <a href="#" class="nav-btn">Get Free Audit</a>
+</div>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section class="hero">
+  <div class="dot-pattern"></div>
+  <div class="hero-bg-blue"></div>
+  <div class="hero-bg-gold"></div>
+
+  <div class="hero-inner">
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="hero-badge fade-up">✦ Marketing &amp; AI Services — Austin, TX</div>
+      <h1 class="hero-h1 fade-up d1">
+        Grow Your Business.<br>
+        Save Every Lead.<br>
+        <span class="shimmer-text">Run Smarter.</span>
+      </h1>
+      <p class="hero-sub fade-up d2">
+        We are a full-service Marketing and AI Agency based in Austin, Texas. We cover every channel to bring you more customers — and build the AI systems that make sure none of them ever slip through the cracks.
+      </p>
+      <div class="hero-btns fade-up d3">
+        <a href="#" class="btn-primary">Get Your Free Audit →</a>
+        <a href="#" class="btn-secondary">View Our Services</a>
+      </div>
+      <div class="trust-row fade-up d4">
+        <div class="trust-item"><span class="ck">✓</span> 100% US-Based Team</div>
+        <div class="trust-item"><span class="ck">✓</span> No Long-Term Contracts</div>
+        <div class="trust-item"><span class="ck">✓</span> Results in 30 Days</div>
+      </div>
+    </div>
+
+    <!-- RIGHT — DASHBOARD -->
+    <div class="hero-right fade-up d2">
+      <!-- Mini card 3: top-left -->
+      <div class="mc mc3">
+        <div class="mc-title" style="color:var(--green)">✓ Follow-up sent</div>
+        <div class="mc-sub">2 minutes ago</div>
+      </div>
+      <!-- Mini card 1: top-right -->
+      <div class="mc mc1">
+        <div class="mc-title">📞 AI Receptionist</div>
+        <div class="mc-sub gr">Online 24/7</div>
+      </div>
+      <!-- Main card -->
+      <div class="dash-card">
+        <div class="dash-head">
+          <div class="dash-title">Growth Dashboard</div>
+          <div class="live-badge"><div class="live-dot"></div> Live</div>
+        </div>
+        <div class="stats-2x2">
+          <div class="stat-box"><div class="num">247</div><div class="lbl">Leads This Month</div></div>
+          <div class="stat-box"><div class="num">94%</div><div class="lbl">Response Rate</div></div>
+          <div class="stat-box"><div class="num">$48K</div><div class="lbl">Revenue Generated</div></div>
+          <div class="stat-box"><div class="num">12min</div><div class="lbl">Avg Response Time</div></div>
+        </div>
+        <div class="bar-chart" id="barChart"></div>
+        <div class="dash-foot">
+          <div class="ai-row"><div class="ai-dot"></div> AI System: Active</div>
+          <div class="follow-txt">Next follow-up: automated</div>
+        </div>
+      </div>
+      <!-- Mini card 2: bottom-left -->
+      <div class="mc mc2">
+        <div class="mc-title">⭐ New Lead</div>
+        <div class="mc-sub">Captured automatically</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ═══════════════════════ STATS BAR ═══════════════════════ -->
+<div class="stats-bar fade-up">
+  <div class="stats-bar-inner">
+    <div class="sb-item">
+      <div class="sb-num" data-count="500" data-suffix="+">0</div>
+      <div class="sb-lbl">Leads Generated Monthly</div>
+    </div>
+    <div class="sb-item">
+      <div class="sb-num">24/7</div>
+      <div class="sb-lbl">AI-Powered Response System</div>
+    </div>
+    <div class="sb-item">
+      <div class="sb-num" data-count="15" data-suffix="+">0</div>
+      <div class="sb-lbl">Marketing Channels Covered</div>
+    </div>
+    <div class="sb-item">
+      <div class="sb-num">30 Days</div>
+      <div class="sb-lbl">To First Results</div>
+    </div>
+    <div class="sb-item">
+      <div class="sb-num" data-count="100" data-suffix="%">0</div>
+      <div class="sb-lbl">US-Based &amp; Austin Proud</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ PROBLEM ═══════════════════════ -->
+<section class="section bg2">
+  <div class="sec-inner">
+    <div class="sec-header fade-up">
+      <div class="pill">THE REALITY</div>
+      <h2 class="sec-h">
+        Your Business Is Losing Customers<br>
+        <span class="gold">And You Don't Even Know It.</span>
+      </h2>
+      <p class="sec-sub">Every missed call, every slow reply, every unread message is a paying customer handed directly to your competitor. Most businesses have two problems — and only fix one of them.</p>
+    </div>
+
+    <div class="prob-grid">
+      <div class="prob-card blue fade-up d1">
+        <div class="icon-circle ic-blue">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2A6BE8" stroke-width="2.2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </div>
+        <div class="prob-label">Problem One</div>
+        <h3 class="prob-title">Not Enough New Customers Coming In</h3>
+        <p class="prob-body">You are working hard but growth feels slow. You do not know which channels to use, which ones are actually working, or how to make them perform consistently month after month.</p>
+        <div class="prob-tag bl">→ We solve this with Marketing</div>
+      </div>
+
+      <div class="prob-card gld fade-up d2">
+        <div class="icon-circle ic-gold">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2.2">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 0112 18.85a19.5 19.5 0 01-4.8-3.05A19.79 19.79 0 013.13 7 2 2 0 015.1 4.77h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11l-.96.96A16 16 0 0015.68 18l.96-.96a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <div class="prob-label">Problem Two</div>
+        <h3 class="prob-title">Losing Customers Who Are Already Reaching Out</h3>
+        <p class="prob-body">A lead calls. You are busy. They leave. A message comes in at 11pm. Nobody replies until morning. They have already hired someone else. This is happening in your business right now.</p>
+        <div class="prob-tag gl">→ We solve this with AI</div>
+      </div>
+    </div>
+
+    <div class="prob-statement fade-up">
+      <p class="prob-stat-txt">
+        <span class="gold">78%</span> of customers buy from the <span class="gold">first</span> business that responds. Are you always first?
+      </p>
+      <p class="prob-stat-sub">62% of callers who get no answer will call a competitor within 5 minutes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PROCESS ═══════════════════════ -->
+<section class="section bg1">
+  <div class="sec-inner">
+    <div class="sec-header fade-up">
+      <div class="pill">THE PROCESS</div>
+      <h2 class="sec-h">
+        Simple. Transparent.<br>
+        <span class="gold">Powerful.</span>
+      </h2>
+      <p class="sec-sub">Getting started with Stripes Stars takes three steps. No confusing onboarding. No months of waiting. Just a clear plan and fast execution.</p>
+    </div>
+
+    <div class="steps-row">
+      <div class="step-card fade-up d1">
+        <div class="step-top">
+          <div class="step-num-badge">01</div>
+          <div class="step-icon">📋</div>
+        </div>
+        <div class="step-title">Free Marketing Audit</div>
+        <p class="step-body">We analyze your entire online presence — Google rankings, ads, social media, website, and response systems — and identify your exact biggest opportunity. Completely free. Zero obligation.</p>
+      </div>
+      <div class="step-card fade-up d2">
+        <div class="step-top">
+          <div class="step-num-badge">02</div>
+          <div class="step-icon">🔧</div>
+        </div>
+        <div class="step-title">We Build Your Custom Plan</div>
+        <p class="step-body">We create a precise growth strategy and system tailored specifically to your business, your target market, and your budget. You approve every step before we build anything.</p>
+      </div>
+      <div class="step-card fade-up d3">
+        <div class="step-top">
+          <div class="step-num-badge">03</div>
+          <div class="step-icon">🚀</div>
+        </div>
+        <div class="step-title">We Launch, Manage &amp; Scale</div>
+        <p class="step-body">We execute everything — campaigns, AI systems, automations, reporting. You focus entirely on serving your customers. We handle all of the growth engine.</p>
+        <div class="step-note">✓ Results typically visible within 30 days of launch</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ WHY ═══════════════════════ -->
+<section class="section bg2">
+  <div class="sec-inner">
+    <div class="sec-header fade-up">
+      <div class="pill">WHY CHOOSE US</div>
+      <h2 class="sec-h">
+        The Only Agency That Covers<br>
+        <span class="shimmer-text">Everything Under One Roof.</span>
+      </h2>
+      <p class="sec-sub">Most agencies do marketing OR technology. We do both — combining traditional performance marketing with cutting-edge AI under one roof, so you never manage multiple vendors again.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card fade-up d1">
+        <span class="why-icon">⚡</span>
+        <div class="why-title">Complete Under One Roof</div>
+        <p class="why-desc">Marketing, AI, and systems — all managed by one dedicated team. No more juggling multiple agencies or vendors.</p>
+      </div>
+      <div class="why-card fade-up d2">
+        <span class="why-icon">⏱️</span>
+        <div class="why-title">Results in 30 Days</div>
+        <p class="why-desc">Most of our clients see their first measurable results within 30 days of launch. We move fast and build right.</p>
+      </div>
+      <div class="why-card fade-up d1">
+        <span class="why-icon">🤖</span>
+        <div class="why-title">AI-First Approach</div>
+        <p class="why-desc">We build AI into every strategy — not as an afterthought, but as the core system that makes everything else work smarter.</p>
+      </div>
+      <div class="why-card fade-up d2">
+        <span class="why-icon">📍</span>
+        <div class="why-title">Austin-Based, USA Team</div>
+        <p class="why-desc">100% US-based team in Austin, Texas. We understand local markets and national growth strategies equally well.</p>
+      </div>
+      <div class="why-card fade-up d1">
+        <span class="why-icon">📊</span>
+        <div class="why-title">Transparent Reporting</div>
+        <p class="why-desc">You get a clear weekly dashboard every Monday. No fluff, no vanity metrics — just what is working and what the numbers say.</p>
+      </div>
+      <div class="why-card fade-up d2">
+        <span class="why-icon">🛡️</span>
+        <div class="why-title">No Long-Term Contracts</div>
+        <p class="why-desc">We earn your business every single month. No 12-month lock-ins. Stay because the results keep you here, not because a contract does.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ TESTIMONIALS ═══════════════════════ -->
+<section class="section bg1">
+  <div class="sec-inner">
+    <div class="sec-header fade-up">
+      <div class="pill">CLIENT RESULTS</div>
+      <h2 class="sec-h">What Our Clients Say</h2>
+      <p class="sec-sub">Real businesses. Real results. Real growth.</p>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card fade-up d1">
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-quote">"[Client testimonial will be added here. This business experienced significant growth after partnering with Stripes Stars.]"</p>
+        <div class="testi-divider"></div>
+        <div class="testi-bottom">
+          <div class="avatar">AB</div>
+          <div>
+            <div class="testi-name">Client Name</div>
+            <div class="testi-biz">Business Type — Austin, TX</div>
+          </div>
+        </div>
+        <div class="deco-quote">"</div>
+      </div>
+      <div class="testi-card fade-up d2">
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-quote">"[Client testimonial will be added here. This business experienced significant growth after partnering with Stripes Stars.]"</p>
+        <div class="testi-divider"></div>
+        <div class="testi-bottom">
+          <div class="avatar">CD</div>
+          <div>
+            <div class="testi-name">Client Name</div>
+            <div class="testi-biz">Business Type — Austin, TX</div>
+          </div>
+        </div>
+        <div class="deco-quote">"</div>
+      </div>
+      <div class="testi-card fade-up d3">
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-quote">"[Client testimonial will be added here. This business experienced significant growth after partnering with Stripes Stars.]"</p>
+        <div class="testi-divider"></div>
+        <div class="testi-bottom">
+          <div class="avatar">EF</div>
+          <div>
+            <div class="testi-name">Client Name</div>
+            <div class="testi-biz">Business Type — Austin, TX</div>
+          </div>
+        </div>
+        <div class="deco-quote">"</div>
+      </div>
+    </div>
+
+    <div class="testi-strip fade-up">
+      <div class="ts-item"><div class="ts-num">100%</div><div class="ts-lbl">Client Retention Rate</div></div>
+      <div class="ts-item"><div class="ts-num">30 Days</div><div class="ts-lbl">Average Time to Results</div></div>
+      <div class="ts-item"><div class="ts-num">24/7</div><div class="ts-lbl">AI System Availability</div></div>
+      <div class="ts-item"><div class="ts-num">$0</div><div class="ts-lbl">Hidden Fees</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CTA ═══════════════════════ -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="cta-inner fade-up">
+    <div class="pill">GET STARTED TODAY</div>
+    <h2 class="cta-h">
+      The Only Question Is:<br>
+      <span class="gold">How Long Will You Wait?</span>
+    </h2>
+    <p class="cta-body">Every week without a marketing system is more leads lost. More calls missed. More customers choosing your competitors. Let us start your free audit today — and show you exactly what is possible for your business in the next 90 days.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-primary-lg">Get My Free Audit →</a>
+      <a href="tel:5127106887" class="btn-ghost-lg">Call Us: (512) 710-6887</a>
+    </div>
+    <div class="cta-contacts">
+      <span class="cta-c">📍 Austin, Texas</span>
+      <span class="cta-c">📞 (512) 710-6887</span>
+      <span class="cta-c">✉️ info@stripesstarllc.com</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <!-- Brand -->
+    <div>
+      <a href="#" class="footer-logo">
+        <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
+          <polygon points="13,1.5 16.2,9.8 25,10.7 18.8,16.5 20.7,25.2 13,20.8 5.3,25.2 7.2,16.5 1,10.7 9.8,9.8" fill="#C9A84C"/>
+        </svg>
+        <span class="logo-txt"><span class="w">Stripes</span><span class="g">Stars</span></span>
+      </a>
+      <p class="footer-tagline">Get More Customers. Save Every Lead. Run Smarter.</p>
+      <div class="soc-row">
+        <a class="soc-btn" href="#" aria-label="Facebook">f</a>
+        <a class="soc-btn" href="#" aria-label="Instagram" style="font-size:13px">ig</a>
+        <a class="soc-btn" href="#" aria-label="LinkedIn">in</a>
+        <a class="soc-btn" href="#" aria-label="Twitter/X">𝕏</a>
+      </div>
+    </div>
+    <!-- Services -->
+    <div>
+      <div class="f-col-title">Services</div>
+      <ul class="f-links">
+        <li><a href="#">SEO &amp; GMB Optimization</a></li>
+        <li><a href="#">Google &amp; Yelp Ads</a></li>
+        <li><a href="#">Social Media Management</a></li>
+        <li><a href="#">Website Development</a></li>
+        <li><a href="#">AI Receptionist</a></li>
+        <li><a href="#">AI Chat Bot</a></li>
+        <li><a href="#">GHL Management</a></li>
+      </ul>
+    </div>
+    <!-- Company -->
+    <div>
+      <div class="f-col-title">Company</div>
+      <ul class="f-links">
+        <li><a href="#">About Stripes Stars</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Free Marketing Audit</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <!-- Contact -->
+    <div>
+      <div class="f-col-title">Get In Touch</div>
+      <div class="f-contact-list">
+        <div class="f-contact-item">📍 Austin, Texas, USA</div>
+        <div class="f-contact-item">📞 (512) 710-6887</div>
+        <div class="f-contact-item">✉️ info@stripesstarllc.com</div>
+        <div class="f-contact-item">🌐 stripesstarsllc.com</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Stripes Stars LLC. All rights reserved.</p>
+    <p>Serving Businesses Across the United States · Austin, TX</p>
+  </div>
+</footer>
+
+<script>
+// Mobile nav
+function toggleMob() {
+  const m = document.getElementById('mobMenu');
+  m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// Bar chart
+const heights = [55, 72, 42, 88, 62, 95, 70];
+const chart = document.getElementById('barChart');
+heights.forEach(h => {
+  const b = document.createElement('div');
+  b.className = 'bar';
+  b.style.height = h + '%';
+  chart.appendChild(b);
+});
+
+// Scroll fade-in
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Counter animation
+function animateCount(el, target, suffix) {
+  let start = 0;
+  const dur = 1800;
+  const increment = target / (dur / 16);
+  const timer = setInterval(() => {
+    start = Math.min(start + increment, target);
+    el.textContent = Math.round(start) + suffix;
+    if (start >= target) clearInterval(timer);
+  }, 16);
+}
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      if (!isNaN(target)) animateCount(el, target, suffix);
+      countObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
+</script>
+</body>
+</html>
