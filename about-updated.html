@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Stripes Stars LLC | Marketing & AI Agency | Austin, TX</title>
+<meta name="description" content="Learn about Stripes Stars LLC — a full-service Marketing and AI Agency based in Austin, Texas. Our story, mission, values, and why we are different.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── ROOT VARIABLES ── */
+:root{
+--bg1:#060D1A;--bg2:#0A1628;--bg3:#0D1E38;--bg4:#112444;
+--gold:#C9A84C;--gold-l:#E8C86A;--gold-d:#A8862A;
+--blue:#2A6BE8;--blue-l:#4D8BF5;
+--white:#FFFFFF;--gray:#8899BB;--gray-l:#AAB8CC;
+--green:#22C55E;
+--bdr:rgba(255,255,255,0.07);
+--bdr-gold:rgba(201,168,76,0.28);
+--bdr-blue:rgba(42,107,232,0.28);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg1);color:var(--white);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;line-height:1.1}
+a{text-decoration:none;color:inherit}
+
+/* ── ANIMATIONS ── */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes pulseRing{0%{transform:scale(1);opacity:.5}100%{transform:scale(2.2);opacity:0}}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+@keyframes countLine{from{width:0}to{width:100%}}
+@keyframes rotateSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes blinkBar{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ── SCROLL REVEAL ── */
+.rv{opacity:0;transform:translateY(38px);transition:opacity .7s ease,transform .7s ease}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+.rv.from-left{transform:translateX(-40px)}
+.rv.from-right{transform:translateX(40px)}
+.rv.from-left.on,.rv.from-right.on{transform:translateX(0)}
+
+/* ── GOLD SHIMMER TEXT ── */
+.gshine{
+background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-l),var(--gold),var(--gold-d));
+background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+background-clip:text;animation:shimmer 3s linear infinite}
+
+/* ── UTILS ── */
+.container{max-width:1200px;margin:0 auto;padding:0 28px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:100px;
+font-size:13px;font-weight:600;letter-spacing:.04em;margin-bottom:18px;
+border:1px solid var(--bdr-gold);background:rgba(201,168,76,.08);color:var(--gold)}
+.sec{padding:100px 0}
+.sec-hd{text-align:center;margin-bottom:56px}
+.sec-hd h2{font-size:42px;margin-bottom:14px}
+.sec-hd p{font-size:18px;color:var(--gray);max-width:660px;margin:0 auto;line-height:1.75}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;
+font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;
+transition:all .25s ease;border:none;white-space:nowrap;text-decoration:none}
+.btn-gold{background:var(--gold);color:#060D1A}
+.btn-gold:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 8px 26px rgba(201,168,76,.38)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.22)}
+.btn-ghost:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.45)}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:70px;display:flex;align-items:center;
+background:rgba(10,22,40,.88);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+border-bottom:1px solid rgba(201,168,76,.2);transition:all .3s ease}
+.nav.scrolled{background:rgba(6,13,26,.97);box-shadow:0 4px 32px rgba(0,0,0,.45)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 28px;width:100%;
+display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:5px;font-family:'Syne',sans-serif}
+.logo .star{color:var(--gold);font-size:22px;filter:drop-shadow(0 0 6px rgba(201,168,76,.55))}
+.logo .s1{color:var(--white);font-size:20px;font-weight:700}
+.logo .s2{color:var(--gold);font-size:20px;font-weight:800}
+.nav-links{display:flex;align-items:center;gap:30px;list-style:none}
+.nav-links a{color:var(--gray);font-size:15px;font-weight:500;transition:color .2s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a.active::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--gold);border-radius:2px}
+.nav-btn{padding:9px 20px;font-size:14px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--gold);border-radius:2px;transition:all .3s ease}
+.mob-menu{display:none;position:fixed;top:70px;left:0;right:0;bottom:0;
+background:rgba(6,13,26,.98);backdrop-filter:blur(20px);z-index:999;
+flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mob-menu.open{display:flex}
+.mob-menu a{color:var(--white);font-family:'Syne',sans-serif;font-size:26px;font-weight:700;transition:color .2s}
+.mob-menu a:hover{color:var(--gold)}
+
+/* ── PAGE HERO ── */
+.page-hero{padding:160px 0 100px;background:var(--bg1);position:relative;overflow:hidden;text-align:center}
+.page-hero::before{content:'';position:absolute;inset:0;
+background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);
+background-size:24px 24px;pointer-events:none}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.hb1{width:550px;height:550px;bottom:-150px;right:-100px;background:rgba(201,168,76,.06);animation:float 13s ease-in-out infinite}
+.hb2{width:380px;height:380px;top:-80px;left:-80px;background:rgba(42,107,232,.06);filter:blur(70px)}
+.hb3{width:300px;height:300px;top:30%;right:15%;background:rgba(201,168,76,.04);filter:blur(60px)}
+.page-hero-inner{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:0 28px}
+.page-hero h1{font-size:60px;font-weight:800;line-height:1.06;margin-bottom:22px;animation:fadeUp .65s ease .1s both}
+.page-hero p{font-size:19px;color:var(--gray);line-height:1.78;max-width:660px;margin:0 auto 40px;animation:fadeUp .65s ease .2s both}
+.hero-badge-wrap{animation:fadeUp .65s ease 0s both}
+
+/* ── DECORATIVE DIVIDER ── */
+.gold-divider{width:80px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+border-radius:3px;margin:24px auto 0}
+
+/* ── STORY SECTION ── */
+.story-sec{background:var(--bg2);padding:100px 0}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.story-label{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+color:var(--gold);margin-bottom:14px}
+.story-h{font-size:40px;font-weight:800;line-height:1.12;margin-bottom:22px}
+.story-p{font-size:17px;color:var(--gray);line-height:1.82;margin-bottom:18px}
+.story-p:last-of-type{margin-bottom:30px}
+.story-highlight{border-left:3px solid var(--gold);padding:16px 20px;background:rgba(201,168,76,.06);
+border-radius:0 10px 10px 0;margin:24px 0}
+.story-highlight p{font-size:17px;color:var(--gray-l);line-height:1.75;font-style:italic;margin:0}
+.story-highlight p strong{color:var(--white);font-style:normal}
+
+/* Story Visual */
+.story-visual{position:relative;display:flex;flex-direction:column;gap:16px}
+.story-card{background:var(--bg3);border-radius:20px;padding:28px;border:1px solid var(--bdr)}
+.story-card-gold{border-color:rgba(201,168,76,.25)}
+.story-card-blue{border-color:rgba(42,107,232,.22)}
+.story-card-hd{font-size:13px;font-weight:600;color:var(--gold);margin-bottom:16px;
+text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+.sc-icon{font-size:16px}
+.story-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.story-stat{text-align:center;background:rgba(255,255,255,.04);border-radius:10px;padding:14px}
+.ss-n{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:4px}
+.ss-l{font-size:12px;color:var(--gray)}
+.skill-bars{display:flex;flex-direction:column;gap:12px}
+.skill-row{display:flex;flex-direction:column;gap:6px}
+.skill-top{display:flex;justify-content:space-between;font-size:13px}
+.skill-name{color:var(--gray-l);font-weight:500}
+.skill-pct{color:var(--gold);font-weight:600}
+.skill-track{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.skill-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold-d),var(--gold));
+animation:countLine 1.5s ease forwards;animation-play-state:paused}
+.skill-fill.animate{animation-play-state:running}
+.pdot{width:8px;height:8px;border-radius:50%;background:var(--green);position:relative;
+animation:pulseDot 2s ease-in-out infinite;flex-shrink:0;display:inline-block}
+.pdot::after{content:'';position:absolute;inset:-3px;border-radius:50%;
+background:rgba(34,197,94,.28);animation:pulseRing 2s ease-out infinite}
+
+/* ── MISSION & VISION ── */
+.mv-sec{background:var(--bg1);padding:100px 0}
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.mv-card{border-radius:24px;padding:44px 40px;position:relative;overflow:hidden}
+.mv-card-mission{background:linear-gradient(135deg,var(--bg3),var(--bg4));border:2px solid rgba(201,168,76,.3)}
+.mv-card-vision{background:var(--bg3);border:1px solid rgba(42,107,232,.22)}
+.mv-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;
+border-radius:50%;opacity:.06;pointer-events:none}
+.mv-card-mission::before{background:var(--gold)}
+.mv-card-vision::before{background:var(--blue)}
+.mv-icon{font-size:44px;margin-bottom:20px;display:block;position:relative;z-index:1}
+.mv-tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+margin-bottom:12px;position:relative;z-index:1}
+.mv-card-mission .mv-tag{color:var(--gold)}
+.mv-card-vision .mv-tag{color:var(--blue)}
+.mv-card h3{font-size:26px;font-weight:800;margin-bottom:16px;position:relative;z-index:1}
+.mv-card p{font-size:16px;color:var(--gray);line-height:1.8;position:relative;z-index:1}
+
+/* ── WHAT DRIVES US ── */
+.drives-sec{background:var(--bg2);padding:100px 0}
+.drives-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.drive-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:18px;padding:32px 28px;
+transition:all .3s ease;position:relative;overflow:hidden}
+.drive-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:18px 18px 0 0;
+background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.drive-card:hover{border-color:var(--bdr-gold);transform:translateY(-4px);box-shadow:0 14px 44px rgba(0,0,0,.3)}
+.drive-card:hover::before{opacity:1}
+.drive-num{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:rgba(201,168,76,.12);
+line-height:1;margin-bottom:8px;transition:color .3s}
+.drive-card:hover .drive-num{color:rgba(201,168,76,.25)}
+.drive-icon{font-size:32px;margin-bottom:14px;display:block}
+.drive-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
+.drive-card p{font-size:14px;color:var(--gray);line-height:1.75}
+
+/* ── WHY STRIPES STARS ── */
+.why-sec{background:var(--bg1);padding:100px 0}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:18px;
+padding:28px;transition:all .3s ease;cursor:default}
+.why-card:hover{border-color:var(--bdr-gold);transform:translateY(-4px);box-shadow:0 10px 36px rgba(201,168,76,.08)}
+.why-icon{width:48px;height:48px;border-radius:12px;background:rgba(201,168,76,.1);
+border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;
+font-size:22px;margin-bottom:16px;transition:all .3s}
+.why-card:hover .why-icon{background:rgba(201,168,76,.18);box-shadow:0 0 20px rgba(201,168,76,.15)}
+.why-card h3{font-size:17px;font-weight:700;margin-bottom:10px}
+.why-card p{font-size:14px;color:var(--gray);line-height:1.75}
+
+/* ── AUSTIN SECTION ── */
+.austin-sec{background:var(--bg2);padding:100px 0}
+.austin-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.austin-tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+color:var(--gold);margin-bottom:14px}
+.austin-h{font-size:40px;font-weight:800;line-height:1.12;margin-bottom:22px}
+.austin-p{font-size:17px;color:var(--gray);line-height:1.82;margin-bottom:20px}
+.austin-facts{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.fact-row{display:flex;align-items:flex-start;gap:16px;padding:18px;
+background:var(--bg3);border-radius:12px;border:1px solid var(--bdr);transition:all .3s}
+.fact-row:hover{border-color:var(--bdr-gold)}
+.fact-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+.fact-text h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.fact-text p{font-size:14px;color:var(--gray);line-height:1.6}
+
+/* Austin visual */
+.austin-visual{display:flex;flex-direction:column;gap:16px}
+.austin-map-card{background:var(--bg3);border:1px solid rgba(201,168,76,.25);border-radius:20px;
+padding:32px;text-align:center;position:relative;overflow:hidden}
+.austin-map-card::before{content:'';position:absolute;inset:0;
+background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,.04) 0%,transparent 70%)}
+.map-pin-wrap{position:relative;display:inline-flex;align-items:center;
+justify-content:center;margin:0 auto 20px}
+.map-circle{width:80px;height:80px;border-radius:50%;background:rgba(201,168,76,.1);
+border:2px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;
+font-size:36px;position:relative;z-index:1}
+.map-ring1{position:absolute;inset:-14px;border-radius:50%;
+border:1px solid rgba(201,168,76,.2);animation:pulseRing 3s ease-out infinite}
+.map-ring2{position:absolute;inset:-28px;border-radius:50%;
+border:1px solid rgba(201,168,76,.1);animation:pulseRing 3s ease-out .8s infinite}
+.map-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px}
+.map-sub{font-size:14px;color:var(--gray)}
+.austin-reach{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.reach-card{background:var(--bg3);border-radius:14px;padding:20px;
+border:1px solid var(--bdr);text-align:center;transition:all .3s}
+.reach-card:hover{border-color:var(--bdr-gold)}
+.reach-n{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--gold);margin-bottom:4px}
+.reach-l{font-size:12px;color:var(--gray)}
+
+/* ── TEAM SECTION ── */
+.team-sec{background:var(--bg1);padding:100px 0}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
+.team-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:22px;
+padding:32px;text-align:center;transition:all .3s ease;position:relative;overflow:hidden}
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.team-card:hover{border-color:var(--bdr-gold);transform:translateY(-4px)}
+.team-card:hover::before{opacity:1}
+.team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bg4),var(--bg2));
+border:3px solid rgba(201,168,76,.35);display:flex;align-items:center;justify-content:center;
+font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--gold);
+margin:0 auto 18px;box-shadow:0 0 24px rgba(201,168,76,.15)}
+.team-name{font-size:18px;font-weight:700;margin-bottom:4px}
+.team-role{font-size:14px;color:var(--gold);font-weight:500;margin-bottom:12px}
+.team-bio{font-size:14px;color:var(--gray);line-height:1.7}
+.team-placeholder-note{text-align:center;font-size:13px;color:var(--gray);font-style:italic;opacity:.5}
+
+/* ── PROMISE SECTION ── */
+.promise-sec{background:var(--bg2);padding:80px 0}
+.promise-card{background:linear-gradient(135deg,var(--bg3),var(--bg4));
+border:1px solid rgba(201,168,76,.25);border-radius:28px;padding:60px;
+text-align:center;position:relative;overflow:hidden;
+box-shadow:0 0 60px rgba(201,168,76,.07)}
+.promise-card::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+width:700px;height:350px;border-radius:50%;
+background:radial-gradient(ellipse,rgba(201,168,76,.05) 0%,transparent 70%);pointer-events:none}
+.promise-icon{font-size:52px;margin-bottom:20px;display:block;
+animation:float 4s ease-in-out infinite;position:relative;z-index:1}
+.promise-h{font-size:34px;font-weight:800;line-height:1.2;margin-bottom:20px;position:relative;z-index:1}
+.promise-p{font-size:18px;color:var(--gray);max-width:680px;margin:0 auto;
+line-height:1.8;position:relative;z-index:1}
+.promise-divider{width:60px;height:2px;background:var(--gold);margin:28px auto;
+border-radius:2px;position:relative;z-index:1}
+.promise-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+margin-top:44px;position:relative;z-index:1}
+.pillar{display:flex;flex-direction:column;align-items:center;gap:10px}
+.pillar-icon{font-size:28px}
+.pillar-label{font-size:15px;font-weight:700;color:var(--white)}
+.pillar-sub{font-size:13px;color:var(--gray);text-align:center;line-height:1.5}
+
+/* ── CTA ── */
+.cta-sec{background:var(--bg1);border-top:2px solid rgba(201,168,76,.28);
+padding:100px 0;position:relative;overflow:hidden}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+width:800px;height:400px;border-radius:50%;
+background:radial-gradient(ellipse,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none}
+.cta-in{position:relative;z-index:1;text-align:center}
+.cta-h{font-size:52px;font-weight:800;line-height:1.1;margin-bottom:24px}
+.cta-p{font-size:18px;color:var(--gray);max-width:600px;margin:0 auto 40px;line-height:1.78}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.btn-cta{padding:18px 44px;font-size:18px}
+.cta-contact{display:flex;gap:30px;justify-content:center;flex-wrap:wrap}
+.cta-contact a{font-size:14px;color:var(--gray);transition:color .2s;text-decoration:none}
+.cta-contact a:hover{color:var(--white)}
+
+/* ── FOOTER ── */
+.footer{background:#030810;border-top:1px solid rgba(255,255,255,.05);padding:60px 0 32px}
+.foot-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:48px}
+.foot-tagline{font-size:14px;color:var(--gray);line-height:1.72;max-width:240px;margin:14px 0 22px}
+.socials{display:flex;gap:10px}
+.soc{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;
+font-size:14px;font-weight:600;transition:all .2s ease;color:var(--gray);cursor:pointer}
+.soc:hover{background:var(--gold);border-color:var(--gold);color:#060D1A}
+.foot-col h4{font-size:14px;font-weight:700;color:var(--white);margin-bottom:16px}
+.foot-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.foot-links a{font-size:14px;color:var(--gray);transition:color .2s;text-decoration:none}
+.foot-links a:hover{color:var(--gold)}
+.foot-info{list-style:none;display:flex;flex-direction:column;gap:10px}
+.foot-info li{font-size:14px;color:var(--gray)}
+.foot-bot{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;
+display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-bot p{font-size:13px;color:var(--gray)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+.story-grid,.austin-grid{grid-template-columns:1fr;gap:48px}
+.mv-grid{grid-template-columns:1fr}
+.drives-grid,.why-grid{grid-template-columns:1fr 1fr}
+.promise-pillars{grid-template-columns:1fr 1fr;gap:24px}
+.foot-grid{grid-template-columns:1fr 1fr}
+.team-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+.nav-links{display:none}.hamburger{display:flex}
+.page-hero h1{font-size:38px}.page-hero p{font-size:17px}
+.sec-hd h2{font-size:30px}
+.story-stat-row{grid-template-columns:1fr 1fr}
+.mv-grid,.story-grid,.austin-grid{grid-template-columns:1fr}
+.drives-grid,.why-grid{grid-template-columns:1fr}
+.team-grid{grid-template-columns:1fr}
+.promise-card{padding:36px 24px}
+.promise-pillars{grid-template-columns:1fr 1fr}
+.promise-h{font-size:26px}
+.austin-reach{grid-template-columns:1fr 1fr}
+.cta-h{font-size:34px}
+.cta-btns{flex-direction:column;align-items:center}
+.btn-cta{width:100%;max-width:320px;justify-content:center}
+.cta-contact{flex-direction:column;align-items:center;gap:14px}
+.foot-grid{grid-template-columns:1fr;gap:28px}
+.foot-bot{flex-direction:column;text-align:center}
+.sec{padding:72px 0}
+}
+@media(max-width:480px){
+.page-hero h1{font-size:32px}
+.promise-pillars{grid-template-columns:1fr}
+.austin-reach{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+<div class="nav-inner">
+  <a href="index.html" class="logo">
+    <span class="star">★</span>
+    <span class="s1">Stripes</span><span class="s2">Stars</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="ai-solutions.html">AI Solutions</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="about.html" class="active">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:14px">
+    <a href="contact.html" class="btn btn-gold nav-btn">Get Free Audit</a>
+    <div class="hamburger" id="hbg"><span></span><span></span><span></span></div>
+  </div>
+</div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="ai-solutions.html">AI Solutions</a>
+  <a href="pricing.html">How It Works</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-gold" style="margin-top:12px;font-size:16px;padding:14px 32px">Get Free Audit</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="hero-blob hb1"></div>
+  <div class="hero-blob hb2"></div>
+  <div class="hero-blob hb3"></div>
+  <div class="page-hero-inner">
+    <div class="hero-badge-wrap"><span class="badge">✦ Our Story — Austin, Texas</span></div>
+    <h1>We Built the Agency<br>We Wished Existed.</h1>
+    <p>Stripes Stars was created for one reason — local business owners deserve a complete growth partner, not another agency that runs ads and disappears. We cover everything from marketing to AI, and we treat your business like our own.</p>
+    <div class="gold-divider"></div>
+  </div>
+</section>
+
+<!-- STORY SECTION -->
+<section class="story-sec">
+  <div class="container">
+    <div class="story-grid">
+
+      <!-- Left: Story Text -->
+      <div class="rv from-left">
+        <div class="story-label">Our Story</div>
+        <h2 class="story-h">Built from the Ground Up<br><span style="color:var(--gold)">in Austin, Texas.</span></h2>
+        <p class="story-p">Stripes Stars was founded with a clear frustration in mind — most marketing agencies promise growth but deliver confusion. They run a few ads, send a monthly report full of numbers that mean nothing, and call it a service. Local business owners were being let down, and we knew there was a better way.</p>
+        <p class="story-p">We built Stripes Stars to be the agency we always wished existed — one that covers every single channel a customer could come from, builds the AI systems that make sure no lead ever slips through the cracks, and is completely transparent about what is working and what is not.</p>
+        <div class="story-highlight">
+          <p>"Most agencies stop at getting you leads. We go all the way — <strong>from the first Google search to the booked appointment</strong> — and make sure nothing leaks in between."</p>
+        </div>
+        <p class="story-p">Today, Stripes Stars serves businesses across the United States from our home base in Austin, Texas — combining traditional performance marketing with cutting-edge AI under one roof, so our clients never have to manage multiple vendors again.</p>
+        <a href="contact.html" class="btn btn-gold" style="margin-top:8px">Start Your Growth Story →</a>
+      </div>
+
+      <!-- Right: Visual Cards -->
+      <div class="rv from-right" style="display:flex;flex-direction:column;gap:18px">
+
+        <!-- Stats Card -->
+        <div class="story-card story-card-gold">
+          <div class="story-card-hd"><span class="sc-icon">📈</span> Agency by the Numbers</div>
+          <div class="story-stat-row">
+            <div class="story-stat"><div class="ss-n">31+</div><div class="ss-l">Services Offered</div></div>
+            <div class="story-stat"><div class="ss-n">24/7</div><div class="ss-l">AI Always On</div></div>
+            <div class="story-stat"><div class="ss-n">$0</div><div class="ss-l">Hidden Fees</div></div>
+            <div class="story-stat"><div class="ss-n">1</div><div class="ss-l">Point of Contact</div></div>
+          </div>
+        </div>
+
+        <!-- Skills Card -->
+        <div class="story-card story-card-blue">
+          <div class="story-card-hd" style="color:var(--blue)"><span class="sc-icon">⚡</span> Our Expertise</div>
+          <div class="skill-bars" id="skillBars">
+            <div class="skill-row">
+              <div class="skill-top"><span class="skill-name">Performance Marketing</span><span class="skill-pct">97%</span></div>
+              <div class="skill-track"><div class="skill-fill" style="width:97%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-top"><span class="skill-name">AI Systems & Automation</span><span class="skill-pct">95%</span></div>
+              <div class="skill-track"><div class="skill-fill" style="width:95%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-top"><span class="skill-name">GHL & CRM Management</span><span class="skill-pct">98%</span></div>
+              <div class="skill-track"><div class="skill-fill" style="width:98%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-top"><span class="skill-name">Lead Conversion Optimization</span><span class="skill-pct">93%</span></div>
+              <div class="skill-track"><div class="skill-fill" style="width:93%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Status Card -->
+        <div class="story-card" style="border:1px solid rgba(34,197,94,.2);padding:20px 24px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span class="pdot"></span>
+              <span style="font-size:14px;font-weight:600;color:var(--green)">Currently Accepting New Clients</span>
+            </div>
+            <span style="font-size:12px;color:var(--gray)">Austin, TX</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION & VISION -->
+<section class="mv-sec">
+  <div class="container">
+    <div class="sec-hd rv">
+      <span class="badge">MISSION & VISION</span>
+      <h2>Why We Show Up<br><span style="color:var(--gold)">Every Single Day.</span></h2>
+      <p>Two things guide every decision we make at Stripes Stars — our mission for our clients and our vision for the future of how local businesses grow.</p>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-card mv-card-mission rv d1">
+        <span class="mv-icon">🎯</span>
+        <div class="mv-tag">Our Mission</div>
+        <h3>To Be the Last Agency<br>You Ever Need to Hire.</h3>
+        <p>Every local business owner deserves a complete, honest, and results-driven growth partner — not a revolving door of vendors. Our mission is to cover every channel, build every system, and deliver every result our clients need to grow — all under one roof, with full transparency, and zero fluff.</p>
+      </div>
+      <div class="mv-card mv-card-vision rv d2">
+        <span class="mv-icon">🔭</span>
+        <div class="mv-tag" style="color:var(--blue)">Our Vision</div>
+        <h3>A World Where No Business<br>Loses a Ready Customer.</h3>
+        <p>We envision a future where every local business — no matter the size — has access to the same sophisticated marketing systems and AI technology that Fortune 500 companies use. Where no call goes unanswered, no lead goes cold, and no business owner has to worry about where the next customer is coming from.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT DRIVES US (VALUES) -->
+<section class="drives-sec">
+  <div class="container">
+    <div class="sec-hd rv">
+      <span class="badge">OUR VALUES</span>
+      <h2>What Drives Every Decision<br><span class="gshine">We Make for You.</span></h2>
+      <p>These are not slogans on a wall. These are the principles that shape how we work, how we communicate, and how we treat every single client — every single day.</p>
+    </div>
+    <div class="drives-grid">
+
+      <div class="drive-card rv d1">
+        <div class="drive-num">01</div>
+        <span class="drive-icon">🔍</span>
+        <h3>Radical Transparency</h3>
+        <p>You will always know exactly what we are doing, why we are doing it, and what results it is producing. No hidden work, no confusing reports, no excuses. Every month you get a clear performance report that tells the whole truth.</p>
+      </div>
+
+      <div class="drive-card rv d2">
+        <div class="drive-num">02</div>
+        <span class="drive-icon">🏆</span>
+        <h3>Results Over Activity</h3>
+        <p>We do not celebrate how busy we look — we celebrate what we actually produce for your business. Leads generated. Calls answered. Appointments booked. Revenue grown. Everything else is noise.</p>
+      </div>
+
+      <div class="drive-card rv d3">
+        <div class="drive-num">03</div>
+        <span class="drive-icon">⚡</span>
+        <h3>Speed is a Superpower</h3>
+        <p>The first business to respond wins the deal. That is why we build systems that respond in seconds — not hours. And it is why we move fast ourselves: proposals the same day, campaigns live within a week, AI systems active within days.</p>
+      </div>
+
+      <div class="drive-card rv d1">
+        <div class="drive-num">04</div>
+        <span class="drive-icon">🤝</span>
+        <h3>True Partnership</h3>
+        <p>We do not want clients — we want partners. We study your business, understand your goals, and think about your growth even when we are not on a call with you. Your success is the only metric that matters to us.</p>
+      </div>
+
+      <div class="drive-card rv d2">
+        <div class="drive-num">05</div>
+        <span class="drive-icon">🧠</span>
+        <h3>Always Learning</h3>
+        <p>Marketing and AI move fast. We stay ahead of every algorithm change, every new platform, and every emerging technology so you do not have to. What worked yesterday may not work tomorrow — we make sure you are always using what works right now.</p>
+      </div>
+
+      <div class="drive-card rv d3">
+        <div class="drive-num">06</div>
+        <span class="drive-icon">💎</span>
+        <h3>No Contracts. Just Results.</h3>
+        <p>We earn your business every single month through the results we produce — not through paperwork that traps you. If we are delivering, you stay. If we are not, you leave. That accountability makes us work harder than any contract ever could.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY STRIPES STARS -->
+<section class="why-sec">
+  <div class="container">
+    <div class="sec-hd rv">
+      <span class="badge">WHY CHOOSE US</span>
+      <h2>The Only Agency That Covers<br><span class="gshine">Everything Under One Roof.</span></h2>
+      <p>Most agencies specialize in one thing. We are built differently — combining traditional performance marketing with cutting-edge AI technology so you never have to manage multiple vendors again.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card rv d1">
+        <div class="why-icon">🏗️</div>
+        <h3>Complete Under One Roof</h3>
+        <p>Marketing, AI systems, and CRM management — all from one dedicated team. One invoice, one point of contact, zero confusion about who is responsible for what.</p>
+      </div>
+      <div class="why-card rv d2">
+        <div class="why-icon">⏱️</div>
+        <h3>Results in 30 Days</h3>
+        <p>Most of our clients see their first measurable results within 30 days of launch. We do not believe in six-month ramp-up periods. We move fast and build right.</p>
+      </div>
+      <div class="why-card rv d3">
+        <div class="why-icon">🤖</div>
+        <h3>AI-First Approach</h3>
+        <p>We do not bolt AI onto old-school marketing as an afterthought. AI is built into the foundation of everything we do — from lead capture to follow-up to booking to reporting.</p>
+      </div>
+      <div class="why-card rv d1">
+        <div class="why-icon">🧑‍💼</div>
+        <h3>Dedicated Account Manager</h3>
+        <p>You always have one person who knows your business inside out. One direct line, one point of accountability — not a ticket system, not a random rep, not a call center.</p>
+      </div>
+      <div class="why-card rv d2">
+        <div class="why-icon">📊</div>
+        <h3>Transparent Monthly Reporting</h3>
+        <p>Every month you receive a clear, simple report showing exactly what is working, what we are optimizing, and what the numbers mean for your business. No fluff, ever.</p>
+      </div>
+      <div class="why-card rv d3">
+        <div class="why-icon">🛡️</div>
+        <h3>No Long-Term Contracts</h3>
+        <p>Month-to-month on everything. We earn your continued business through the results we deliver — not through a contract that locks you in. That is the standard we hold ourselves to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUSTIN SECTION -->
+<section class="austin-sec">
+  <div class="container">
+    <div class="austin-grid">
+
+      <!-- Left: Content -->
+      <div class="rv from-left">
+        <div class="austin-tag">Where We're Based</div>
+        <h2 class="austin-h">Headquartered in Austin.<br><span style="color:var(--gold)">Built to Serve<br>Businesses Everywhere.</span></h2>
+        <p class="austin-p">Stripes Stars is registered and headquartered in Austin, Texas — one of the most entrepreneurial and fast-growing cities in America. Our roots are here, and so is our office. But our team is built the way modern agencies are built — with specialists located remotely across the globe, each hired for their expertise, not their zip code.</p>
+        <p class="austin-p">That model gives our clients something most local agencies simply cannot offer: a boutique agency feel with enterprise-level talent depth — all managed under one roof, with one point of contact, and zero complexity on your end.</p>
+
+        <div class="austin-facts">
+          <div class="fact-row">
+            <span class="fact-icon">🌆</span>
+            <div class="fact-text">
+              <h4>Austin, TX — Registered & Headquartered</h4>
+              <p>Our LLC is registered in Austin, Texas. That is where we operate from, where decisions are made, and where our clients can always reach us.</p>
+            </div>
+          </div>
+          <div class="fact-row">
+            <span class="fact-icon">🌍</span>
+            <div class="fact-text">
+              <h4>Remote-First, Expertise-Driven Team</h4>
+              <p>Our specialists work remotely from different locations — because great talent does not live in one city. Every team member is hired for one thing: delivering results for our clients.</p>
+            </div>
+          </div>
+          <div class="fact-row">
+            <span class="fact-icon">📞</span>
+            <div class="fact-text">
+              <h4>Always Reachable — No Runarounds</h4>
+              <p>Call us at (512) 710-6887 or email info@stripesstarllc.com. You always get a real response from someone who knows your account.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Visual -->
+      <div class="rv from-right" style="display:flex;flex-direction:column;gap:18px">
+        <div class="austin-map-card">
+          <div class="map-pin-wrap">
+            <div class="map-ring1"></div>
+            <div class="map-ring2"></div>
+            <div class="map-circle">📍</div>
+          </div>
+          <div class="map-title">Austin, Texas</div>
+          <div class="map-sub" style="color:var(--gold);font-weight:600;font-size:16px;margin-top:4px">Stripes Stars HQ</div>
+          <div class="map-sub" style="margin-top:8px">stripesstarsllc.com &nbsp;·&nbsp; (512) 710-6887</div>
+        </div>
+
+        <div class="austin-reach">
+          <div class="reach-card">
+            <div class="reach-n">Austin</div>
+            <div class="reach-l">HQ & Registered</div>
+          </div>
+          <div class="reach-card">
+            <div class="reach-n">50+</div>
+            <div class="reach-l">States Served</div>
+          </div>
+          <div class="reach-card">
+            <div class="reach-n">1</div>
+            <div class="reach-l">Point of Contact</div>
+          </div>
+          <div class="reach-card">
+            <div class="reach-n">24/7</div>
+            <div class="reach-l">AI Always Active</div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg3);border:1px solid rgba(34,197,94,.2);border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:12px">
+          <span class="pdot"></span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--green)">Currently Accepting New Clients</div>
+            <div style="font-size:12px;color:var(--gray);margin-top:2px">Book your free audit today — zero obligation</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TEAM SECTION -->
+<section class="team-sec">
+  <div class="container">
+    <div class="sec-hd rv">
+      <span class="badge">OUR TEAM</span>
+      <h2>The People Behind<br><span style="color:var(--gold)">Your Growth.</span></h2>
+      <p>A dedicated team of marketers, AI specialists, and systems builders — all focused on one thing: delivering real, measurable results for your business every single month.</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card rv d1">
+        <div class="team-avatar">SS</div>
+        <div class="team-name">Founder & CEO</div>
+        <div class="team-role">Marketing & AI Strategy</div>
+        <p class="team-bio">Leads agency strategy, client relationships, and AI system development. Passionate about helping local businesses compete with the big players using technology and smart marketing.</p>
+      </div>
+      <div class="team-card rv d2">
+        <div class="team-avatar">MK</div>
+        <div class="team-name">Head of Marketing</div>
+        <div class="team-role">Performance & Growth</div>
+        <p class="team-bio">Manages all paid advertising, SEO, and organic growth campaigns. Specializes in ROI-focused marketing that generates real leads — not vanity metrics.</p>
+      </div>
+      <div class="team-card rv d3">
+        <div class="team-avatar">AI</div>
+        <div class="team-name">AI Systems Lead</div>
+        <div class="team-role">Automation & AI Build</div>
+        <p class="team-bio">Designs and deploys all AI calling systems, chat bots, and automation workflows. Ensures every client's AI is trained, tested, and performing before going live.</p>
+      </div>
+    </div>
+    <div class="team-placeholder-note rv">Team profiles will be updated with photos and full bios</div>
+  </div>
+</section>
+
+<!-- OUR PROMISE -->
+<section class="promise-sec">
+  <div class="container">
+    <div class="promise-card rv">
+      <span class="promise-icon">🤝</span>
+      <h2 class="promise-h">The Stripes Stars Promise —<br><span style="color:var(--gold)">We Treat Your Business<br>Like Our Own.</span></h2>
+      <div class="promise-divider"></div>
+      <p class="promise-p">When you partner with Stripes Stars, you are not buying a service from a vendor. You are gaining a dedicated growth team that genuinely cares about your results. We will never set it and forget it. We will never hide behind confusing reports. We will never stop optimizing. And we will never stop pushing to find the next opportunity to grow your revenue.</p>
+      <div class="promise-pillars">
+        <div class="pillar">
+          <span class="pillar-icon">🎯</span>
+          <span class="pillar-label">Results First</span>
+          <span class="pillar-sub">Every decision is made for your outcome, not ours</span>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">🔍</span>
+          <span class="pillar-label">Full Transparency</span>
+          <span class="pillar-sub">You always know exactly what is happening</span>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">⚡</span>
+          <span class="pillar-label">Fast Execution</span>
+          <span class="pillar-sub">We move fast and build things that last</span>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">🛡️</span>
+          <span class="pillar-label">No Lock-Ins</span>
+          <span class="pillar-sub">Stay because of results, never because of a contract</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="cta-glow"></div>
+  <div class="container cta-in">
+    <div class="rv">
+      <span class="badge">LET'S WORK TOGETHER</span>
+      <h2 class="cta-h">Ready to Meet Your<br><span style="color:var(--gold)">Growth Team?</span></h2>
+      <p class="cta-p">Book your free 30-minute marketing audit and let us show you exactly what is possible for your business. We will analyze your current situation, identify your biggest opportunity, and lay out a clear path forward — completely free, zero obligation.</p>
+    </div>
+    <div class="cta-btns rv d1">
+      <a href="contact.html" class="btn btn-gold btn-cta">Book My Free Audit →</a>
+      <a href="tel:5127106887" class="btn btn-ghost btn-cta">Call: (512) 710-6887</a>
+    </div>
+    <div class="cta-contact rv d2">
+      <a href="#">📍 Austin, Texas</a>
+      <a href="tel:5127106887">📞 (512) 710-6887</a>
+      <a href="mailto:info@stripesstarllc.com">✉️ info@stripesstarllc.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="index.html" class="logo"><span class="star">★</span><span class="s1">Stripes</span><span class="s2">Stars</span></a>
+        <p class="foot-tagline">Get More Customers. Save Every Lead. Run Smarter.</p>
+        <div class="socials">
+          <div class="soc">f</div><div class="soc">ig</div><div class="soc">in</div><div class="soc">𝕏</div>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul class="foot-links">
+          <li><a href="services.html">SEO &amp; GMB Optimization</a></li>
+          <li><a href="services.html">Google &amp; Yelp Ads</a></li>
+          <li><a href="services.html">Social Media Management</a></li>
+          <li><a href="services.html">Website Development</a></li>
+          <li><a href="ai-solutions.html">AI Receptionist</a></li>
+          <li><a href="ai-solutions.html">AI Chat Bot</a></li>
+          <li><a href="services.html">GHL Management</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul class="foot-links">
+          <li><a href="about.html">About Stripes Stars</a></li>
+          <li><a href="index.html">How It Works</a></li>
+          <li><a href="index.html">How It Works</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+          <li><a href="contact.html">Free Marketing Audit</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Get In Touch</h4>
+        <ul class="foot-info">
+          <li>📍 Austin, Texas, USA</li>
+          <li>📞 (512) 710-6887</li>
+          <li>✉️ info@stripesstarllc.com</li>
+          <li>🌐 stripesstarsllc.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <p>© 2025 Stripes Stars LLC. All rights reserved.</p>
+      <p>Headquartered in Austin, TX · Serving Businesses Across the United States</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>80));
+
+// ── MOBILE MENU ──
+const hbg=document.getElementById('hbg'),mob=document.getElementById('mobMenu');
+let open=false;
+hbg.addEventListener('click',()=>{
+  open=!open;mob.classList.toggle('open',open);
+  const s=hbg.querySelectorAll('span');
+  if(open){s[0].style.transform='rotate(45deg) translate(5px,5px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(5px,-5px)'}
+  else{s.forEach(x=>{x.style.transform='';x.style.opacity=''})}
+});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  open=false;mob.classList.remove('open');
+  hbg.querySelectorAll('span').forEach(x=>{x.style.transform='';x.style.opacity=''});
+}));
+
+// ── SCROLL REVEAL ──
+const rvEls=document.querySelectorAll('.rv');
+const rvObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')})
+},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+rvEls.forEach(el=>rvObs.observe(el));
+
+// ── SKILL BARS ANIMATE ON SCROLL ──
+const skillBars=document.getElementById('skillBars');
+let skilled=false;
+const skillObs=new IntersectionObserver((entries)=>{
+  if(entries[0].isIntersecting&&!skilled){
+    skilled=true;
+    document.querySelectorAll('.skill-fill').forEach((bar,i)=>{
+      setTimeout(()=>bar.classList.add('animate'),i*120);
+    });
+  }
+},{threshold:.5});
+if(skillBars)skillObs.observe(skillBars);
+
+// ── COUNT UP FOR REACH STATS ──
+function countUp(el,target,sfx){
+  if(!el||isNaN(target))return;
+  const dur=1800,start=performance.now();
+  (function tick(now){
+    const p=Math.min((now-start)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(e*target)+sfx;
+    if(p<1)requestAnimationFrame(tick);
+    else el.textContent=target+sfx;
+  })(start);
+}
+let counted=false;
+const reachCards=document.querySelectorAll('.reach-n');
+const reachData=[null,50,100,null];
+const reachObs=new IntersectionObserver((entries)=>{
+  if(entries[0].isIntersecting&&!counted){
+    counted=true;
+    reachCards.forEach((el,i)=>{
+      if(reachData[i])countUp(el,reachData[i],'');
+    });
+  }
+},{threshold:.5});
+if(reachCards.length)reachObs.observe(reachCards[0]);
+</script>
+</body>
+</html>
