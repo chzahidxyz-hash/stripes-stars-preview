@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="slides-format" content="viewport" />
+  <title>Floraison Proposal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-bg: #0f1117;
+      --color-bg-deep: #080a0f;
+      --color-surface: #171a21;
+      --color-text: #f8f4ef;
+      --color-text-secondary: #e6ddd2;
+      --color-text-muted: #bea98f;
+      --color-accent-1: #d8b48a;
+      --color-accent-2: #f3e3cf;
+      --color-accent-3: #9f6c52;
+      --color-glass-bg: rgba(255,255,255,0.06);
+      --color-glass-border: rgba(255,255,255,0.10);
+      --color-vignette: rgba(0,0,0,0.42);
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+  </style>
+  <style>
+    :root { --color-bg: #0f1117; --color-text: #f8f4ef; --glow-color-rgb: 216,180,138; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { background: var(--color-bg); margin: 0; }
+    body { font-family: var(--font-body); color: var(--color-text); overflow: hidden; height: 100vh; width: 100vw; }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide { position: absolute; inset: 0; background: var(--color-bg); display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.95); transition: opacity .7s ease, transform .7s ease; pointer-events: none; overflow: hidden; }
+    .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+    .slide > .content { position: relative; z-index: 2; width: 100%; max-width: 1120px; padding: clamp(1.5rem, 4vw, 4rem); }
+    .nav-controls { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; z-index: 100; background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); padding: 10px 24px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.12); }
+    .nav-btn { width: 40px; height: 40px; border: none; background: rgba(255,255,255,0.08); color: var(--color-accent-1); border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
+    .slide-dots { display: flex; gap: 8px; }
+    .slide-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18); cursor: pointer; transition: .3s; }
+    .slide-dots .dot.active { background: var(--color-accent-1); transform: scale(1.25); }
+    .slide-counter { font-size: .8rem; color: var(--color-text-muted); min-width: 46px; text-align: center; }
+    .reveal { opacity: 0; transform: translateY(20px); }
+    @keyframes float-slow { 0% { transform: translate(0,0) scale(1);} 25% { transform: translate(50px,-40px) scale(1.08);} 50% { transform: translate(-30px,40px) scale(0.92);} 75% { transform: translate(40px,20px) scale(1.04);} 100% { transform: translate(0,0) scale(1);} }
+    @keyframes float-drift { 0% { transform: translate(0,0) scale(1) rotate(0deg);} 33% { transform: translate(-45px,-55px) scale(1.12) rotate(3deg);} 66% { transform: translate(38px,26px) scale(.9) rotate(-2deg);} 100% { transform: translate(0,0) scale(1) rotate(0deg);} }
+    @keyframes float { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-14px);} }
+    .gradient-mesh { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(90px); animation: float-slow 12s ease-in-out infinite; }
+    .blob:nth-child(2) { animation: float-drift 16s ease-in-out infinite; }
+    .blob:nth-child(3) { animation: float-slow 20s ease-in-out infinite reverse; }
+    .slide::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-size: 256px 256px; opacity: .03; mix-blend-mode: overlay; }
+    .slide::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, transparent 52%, var(--color-vignette) 100%); }
+    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.10); box-shadow: 0 10px 40px rgba(0,0,0,0.18); }
+    .section-kicker { letter-spacing: .18em; text-transform: uppercase; color: var(--color-text-muted); font-size: .78rem; }
+    .metric-card { min-height: 180px; }
+    .timeline-line { position: absolute; left: 14px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(to bottom, var(--color-accent-2), var(--color-accent-3)); }
+    .timeline-dot { width: 14px; height: 14px; border-radius: 999px; background: var(--color-accent-1); box-shadow: 0 0 0 6px rgba(216,180,138,0.12), 0 0 24px rgba(216,180,138,0.45); }
+    .mouse-spotlight { position: fixed; inset: 0; z-index: 99; pointer-events: none; }
+  </style>
+</head>
+<body>
+<div class="mouse-spotlight"></div>
+<div class="deck">
+  <div class="slide slide-1 active" data-slide="1">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:520px;height:520px;top:-130px;right:-120px;background:var(--color-accent-1);opacity:.14"></div>
+      <div class="blob" style="width:340px;height:340px;bottom:-100px;left:-70px;background:var(--color-accent-2);opacity:.11"></div>
+      <div class="blob" style="width:220px;height:220px;top:46%;left:16%;background:var(--color-accent-3);opacity:.1"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <div class="text-[120px] mb-5 animate-[float_3s_ease-in-out_infinite]">🌸</div>
+      <p class="section-kicker reveal mb-5">Stripes Stars × Floraison</p>
+      <h1 class="font-display text-[clamp(2.8rem,6vw,5.2rem)] font-black bg-linear-to-br from-accent-1 via-accent-2 to-accent-1 bg-clip-text text-transparent tracking-tight mb-4 reveal">Social Growth Proposal</h1>
+      <p class="text-[clamp(1rem,1.6vw,1.35rem)] text-text-secondary max-w-3xl mx-auto reveal">Helping Floraison turn luxury floral branding into stronger visibility, more followers, better reviews, and more weekly booked jobs.</p>
+      <p class="mt-8 text-sm text-text-muted reveal">Prepared for Floraison · Month-to-month service</p>
+    </div>
+  </div>
+
+  <div class="slide slide-2" data-slide="2">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:320px;height:320px;top:-70px;right:-80px;background:var(--color-accent-1);opacity:.08"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-60px;left:-40px;background:var(--color-accent-2);opacity:.06"></div>
+    </div>
+    <div class="content">
+      <p class="section-kicker reveal mb-4">Section 01</p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold reveal mb-4">Your Brand, As We See It</h2>
+      <div class="grid grid-cols-2 gap-6 mt-8">
+        <div class="glass rounded-3xl p-8 reveal">
+          <p class="text-lg leading-8 text-text-secondary">Floraison is positioned as a luxury floral rental brand for weddings, events, and styled spaces, with a polished presentation that already feels premium online.</p>
+        </div>
+        <div class="glass rounded-3xl p-8 reveal">
+          <p class="text-lg leading-8 text-text-secondary">The business is visually strong, feminine, elegant, and highly marketable on Facebook and Instagram because the service naturally fits aspirational content.</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-5 mt-6">
+        <div class="glass rounded-2xl p-6 reveal"><p class="text-2xl mb-2">💍</p><h3 class="font-bold mb-2">Wedding-ready</h3><p class="text-sm text-text-secondary">A brand that fits bridal and event content beautifully.</p></div>
+        <div class="glass rounded-2xl p-6 reveal"><p class="text-2xl mb-2">📸</p><h3 class="font-bold mb-2">Photo-friendly</h3><p class="text-sm text-text-secondary">Strong visuals make follower growth easier with the right consistency.</p></div>
+        <div class="glass rounded-2xl p-6 reveal"><p class="text-2xl mb-2">✨</p><h3 class="font-bold mb-2">Premium feel</h3><p class="text-sm text-text-secondary">The branding supports higher trust when backed by active profiles and reviews.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-3" data-slide="3">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:360px;height:360px;top:-90px;left:-90px;background:var(--color-accent-3);opacity:.08"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-70px;right:-40px;background:var(--color-accent-2);opacity:.06"></div>
+    </div>
+    <div class="content">
+      <p class="section-kicker reveal mb-4">Section 02</p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold reveal mb-10">What Floraison Wants</h2>
+      <div class="grid grid-cols-3 gap-6">
+        <div class="glass rounded-3xl p-8 metric-card reveal text-center">
+          <p class="text-5xl font-black text-accent-1 mb-3">3–4</p>
+          <h3 class="uppercase tracking-[0.14em] text-sm text-text-muted mb-2">Jobs Weekly</h3>
+          <p class="text-sm text-text-secondary">Target discussed on the call for steady weekly work.</p>
+        </div>
+        <div class="glass rounded-3xl p-8 metric-card reveal text-center">
+          <p class="text-5xl font-black text-accent-1 mb-3">3</p>
+          <h3 class="uppercase tracking-[0.14em] text-sm text-text-muted mb-2">Months</h3>
+          <p class="text-sm text-text-secondary">Expected timeline to show meaningful traction and growth.</p>
+        </div>
+        <div class="glass rounded-3xl p-8 metric-card reveal text-center">
+          <p class="text-5xl font-black text-accent-1 mb-3">1</p>
+          <h3 class="uppercase tracking-[0.14em] text-sm text-text-muted mb-2">Monthly Report</h3>
+          <p class="text-sm text-text-secondary">Progress is reviewed each month before continuing.</p>
+        </div>
+      </div>
+      <div class="glass rounded-3xl p-8 mt-8 reveal">
+        <p class="text-lg leading-8 text-text-secondary">The goal is simple: more followers, stronger social proof, and more inbound interest that can turn into consistent weekly bookings.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-4" data-slide="4">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:350px;height:350px;top:-70px;right:-70px;background:var(--color-accent-1);opacity:.08"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-60px;left:-30px;background:var(--color-accent-3);opacity:.07"></div>
+    </div>
+    <div class="content">
+      <p class="section-kicker reveal mb-4">Section 03</p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold reveal mb-8">Where the Opportunity Is</h2>
+      <div class="space-y-4 relative pl-10">
+        <div class="timeline-line"></div>
+        <div class="glass rounded-2xl p-6 reveal relative"><div class="timeline-dot absolute -left-[33px] top-7"></div><h3 class="font-bold mb-2">Visual product, but under-leveraged growth</h3><p class="text-text-secondary">Floraison already has the kind of elegant offer that performs well on Instagram and Facebook when content is consistent and branded.</p></div>
+        <div class="glass rounded-2xl p-6 reveal relative"><div class="timeline-dot absolute -left-[33px] top-7"></div><h3 class="font-bold mb-2">Followers need to become future clients</h3><p class="text-text-secondary">The profiles should not only look nice; they should create trust, attract local attention, and encourage inquiries.</p></div>
+        <div class="glass rounded-2xl p-6 reveal relative"><div class="timeline-dot absolute -left-[33px] top-7"></div><h3 class="font-bold mb-2">Reviews will increase booking confidence</h3><p class="text-text-secondary">A stronger review base helps premium service buyers feel safer reaching out and comparing options.</p></div>
+        <div class="glass rounded-2xl p-6 reveal relative"><div class="timeline-dot absolute -left-[33px] top-7"></div><h3 class="font-bold mb-2">Google presence should be built correctly from day one</h3><p class="text-text-secondary">Even while the Google listing is still in process, the strategy can be prepared now so local search support is ready later.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-5" data-slide="5">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:430px;height:430px;top:-120px;right:-110px;background:var(--color-accent-2);opacity:.10"></div>
+      <div class="blob" style="width:270px;height:270px;bottom:-80px;left:-40px;background:var(--color-accent-1);opacity:.08"></div>
+    </div>
+    <canvas class="particle-canvas-ambient" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <p class="section-kicker reveal mb-5">Section 04</p>
+      <h2 class="font-display text-[clamp(2.2rem,4.8vw,3.6rem)] font-bold reveal mb-4">The Monthly Growth System</h2>
+      <p class="text-lg text-text-secondary max-w-3xl mx-auto reveal">One connected service focused on visibility, trust, audience growth, and local brand presence.</p>
+    </div>
+  </div>
+
+  <div class="slide slide-6" data-slide="6">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:320px;height:320px;top:-60px;right:-70px;background:var(--color-accent-1);opacity:.08"></div>
+      <div class="blob" style="width:250px;height:250px;bottom:-60px;left:-30px;background:var(--color-accent-2);opacity:.06"></div>
+    </div>
+    <div class="content">
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold reveal mb-8">What We Will Manage</h2>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="glass rounded-3xl p-8 reveal">
+          <h3 class="font-bold text-xl mb-3">Facebook & Instagram Management</h3>
+          <p class="text-text-secondary leading-8">Consistent posting, profile improvement, caption support, branded presentation, and active management designed to improve reach and inquiry intent.</p>
+        </div>
+        <div class="glass rounded-3xl p-8 reveal">
+          <h3 class="font-bold text-xl mb-3">Follower Growth Strategy</h3>
+          <p class="text-text-secondary leading-8">Growth focused on attracting the right audience, not just bigger numbers, so the profiles build local trust and lead potential.</p>
+        </div>
+        <div class="glass rounded-3xl p-8 reveal">
+          <h3 class="font-bold text-xl mb-3">Google Business Support</h3>
+          <p class="text-text-secondary leading-8">Planning and setup direction for the Google listing so it can support local SEO and discovery once it goes live.</p>
+        </div>
+        <div class="glass rounded-3xl p-8 reveal">
+          <h3 class="font-bold text-xl mb-3">Reviews & Reputation</h3>
+          <p class="text-text-secondary leading-8">Support to help increase reviews and strengthen credibility across social channels and future Google presence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-7" data-slide="7">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:320px;height:320px;top:-70px;left:-70px;background:var(--color-accent-3);opacity:.08"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-60px;right:-30px;background:var(--color-accent-2);opacity:.06"></div>
+    </div>
+    <div class="content">
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold reveal mb-8">Content Direction for Floraison</h2>
+      <div class="grid grid-cols-3 gap-5">
+        <div class="glass rounded-2xl p-6 reveal"><p class="text-3xl mb-3">💐</p><h3 class="font-bold mb-2">Luxury arrangements</h3><p class="text-sm text-text-secondary">Showcase premium faux floral designs in a refined, elegant style.</p></div>
+        <div class="glass rounded-2xl p-6 reveal"><p class="text-3xl mb-3">👰</p><h3 class="font-bold mb-2">Wedding inspiration</h3><p class="text-sm text-text-secondary">Create content that attracts brides, planners, and event-focused audiences.</p></div>
+        <div class="glass rounded-2xl p-6 reveal"><p class="text-3xl mb-3">📍</p><h3 class="font-bold mb-2">Local trust</h3><p class="text-sm text-text-secondary">Build stronger relevance for local clients looking for floral event services.</p></div>
+        <div class="glass rounded-2xl p-6 reveal"><p class="text-3xl mb-3">📸</p><h3 class="font-bold mb-2">Styled visuals</h3><p class="text-sm text-text-secondary">Use high-aesthetic content to stop scrolls and increase saves and shares.</p></div>
+        <div class="glass rounded-2xl p-6 reveal"><p class="text-3xl mb-3">⭐</p><h3 class="font-bold mb-2">Review proof</h3><p class="text-sm text-text-secondary">Turn satisfied clients into visible social proof that drives trust.</p></div>
+        <div class="glass rounded-2xl p-6 reveal"><p class="text-3xl mb-3">📩</p><h3 class="font-bold mb-2">Inquiry intent</h3><p class="text-sm text-text-secondary">Every profile should guide visitors closer to contacting the business.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-8" data-slide="8">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:350px;height:350px;top:-80px;right:-80px;background:var(--color-accent-1);opacity:.08"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-60px;left:-40px;background:var(--color-accent-2);opacity:.06"></div>
+    </div>
+    <div class="content">
+      <p class="section-kicker reveal mb-4">Section 05</p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold reveal mb-8">30 · 60 · 90 Day Roadmap</h2>
+      <div class="grid grid-cols-3 gap-6">
+        <div class="glass rounded-3xl p-8 reveal">
+          <h3 class="font-bold text-xl mb-4">Days 1–30</h3>
+          <ul class="space-y-3 text-text-secondary leading-7 text-sm">
+            <li>Profile audit and optimization.</li>
+            <li>Branded content direction begins.</li>
+            <li>Posting consistency starts.</li>
+            <li>Google listing strategy prepared.</li>
+          </ul>
+        </div>
+        <div class="glass rounded-3xl p-8 reveal">
+          <h3 class="font-bold text-xl mb-4">Days 31–60</h3>
+          <ul class="space-y-3 text-text-secondary leading-7 text-sm">
+            <li>Audience growth and engagement focus.</li>
+            <li>Refined content around events and bookings.</li>
+            <li>Review-building momentum starts.</li>
+            <li>Monthly performance tracking shared.</li>
+          </ul>
+        </div>
+        <div class="glass rounded-3xl p-8 reveal">
+          <h3 class="font-bold text-xl mb-4">Days 61–90</h3>
+          <ul class="space-y-3 text-text-secondary leading-7 text-sm">
+            <li>Evaluate follower and inquiry growth.</li>
+            <li>Adjust strategy using what performs best.</li>
+            <li>Push toward the 3–4 jobs weekly target.</li>
+            <li>Review next-step continuation monthly.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-9" data-slide="9">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:420px;height:420px;top:-120px;left:-100px;background:var(--color-accent-3);opacity:.10"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-70px;right:-40px;background:var(--color-accent-2);opacity:.08"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <p class="section-kicker reveal mb-4">Section 06</p>
+      <h2 class="font-display text-[clamp(2.2rem,4.8vw,3.6rem)] font-bold reveal mb-8">Investment & Terms</h2>
+      <div class="max-w-3xl mx-auto glass rounded-[32px] p-10 reveal">
+        <p class="text-sm uppercase tracking-[0.18em] text-text-muted mb-4">Flat Monthly Rate</p>
+        <p class="text-7xl font-black text-accent-1 mb-5">$200</p>
+        <p class="text-lg text-text-secondary mb-8">Professional monthly management for Facebook, Instagram, follower growth support, Google Business direction, and review growth support.</p>
+        <div class="grid grid-cols-2 gap-4 text-left">
+          <div class="glass rounded-2xl p-5 reveal"><p class="font-bold mb-2">Month-to-month</p><p class="text-sm text-text-secondary">No long-term contract.</p></div>
+          <div class="glass rounded-2xl p-5 reveal"><p class="font-bold mb-2">Monthly reporting</p><p class="text-sm text-text-secondary">Results reviewed every month.</p></div>
+          <div class="glass rounded-2xl p-5 reveal"><p class="font-bold mb-2">Low-risk service</p><p class="text-sm text-text-secondary">Continue based on visible progress.</p></div>
+          <div class="glass rounded-2xl p-5 reveal"><p class="font-bold mb-2">3-month growth direction</p><p class="text-sm text-text-secondary">Built for traction while staying flexible.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-10" data-slide="10">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:500px;height:500px;top:-110px;right:-110px;background:var(--color-accent-1);opacity:.15"></div>
+      <div class="blob" style="width:320px;height:320px;bottom:-90px;left:-60px;background:var(--color-accent-2);opacity:.12"></div>
+      <div class="blob" style="width:220px;height:220px;top:44%;left:20%;background:var(--color-accent-3);opacity:.10"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <p class="section-kicker reveal mb-4">Next Step</p>
+      <h2 class="font-display text-[clamp(2.4rem,5vw,4rem)] font-bold bg-linear-to-br from-accent-1 via-accent-2 to-accent-1 bg-clip-text text-transparent reveal mb-5">Let’s Grow Floraison Professionally</h2>
+      <p class="text-lg text-text-secondary max-w-3xl mx-auto reveal">With the right consistency, positioning, and monthly review process, Floraison can build stronger visibility, better trust, and more inquiries that support steady weekly jobs.</p>
+      <div class="mt-10 inline-flex glass rounded-full px-8 py-4 reveal">
+        <span class="text-text-secondary">Stripes Stars LLC · Month-to-month social growth service</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-controls">
+  <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
+  <div class="slide-dots" id="dots"></div>
+  <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
+  <span class="slide-counter" id="counter">1 / 10</span>
+</div>
+
+<script>
+let current = 1;
+const total = document.querySelectorAll('.slide').length;
+const dotsContainer = document.getElementById('dots');
+const counter = document.getElementById('counter');
+for (let i = 1; i <= total; i++) { const dot = document.createElement('div'); dot.className = 'dot' + (i === 1 ? ' active' : ''); dot.onclick = () => goToSlide(i); dotsContainer.appendChild(dot); }
+function goToSlide(n) { const prev = document.querySelector('.slide.active'); const next = document.querySelector(`.slide[data-slide="${n}"]`); if (prev) prev.classList.remove('active'); if (next) { next.classList.add('active'); animateSlide(next); } current = n; updateNav(); }
+function changeSlide(dir) { let next = current + dir; if (next < 1) next = total; if (next > total) next = 1; goToSlide(next); }
+function updateNav() { document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current)); counter.textContent = current + ' / ' + total; }
+document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); } });
+let touchStartX = 0;
+document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', (e) => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1); });
+function animateSlide(slide) { slide.querySelectorAll('.reveal').forEach((el, i) => { el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.offsetHeight; const delay = i * 0.08; el.style.transition = `opacity 0.35s ease ${delay}s, transform 0.35s ease ${delay}s`; el.style.opacity = '1'; el.style.transform = 'translateY(0px)'; }); }
+document.addEventListener('mousemove', (e) => { const spotlight = document.querySelector('.mouse-spotlight'); if (spotlight) { const rgb = getComputedStyle(document.documentElement).getPropertyValue('--glow-color-rgb').trim() || '216,180,138'; spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(${rgb}, 0.06), transparent 40%)`; } });
+window.initParticles = function(canvas, options) { if (!canvas) return; const ctx = canvas.getContext('2d'); canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; const interactive = options.interactive !== false; const count = options.count || (interactive ? 55 : 18); let mx = -1000, my = -1000; const rgb = getComputedStyle(document.documentElement).getPropertyValue('--glow-color-rgb').trim() || '216,180,138'; const [r, g, b] = rgb.split(',').map(Number); const particles = Array.from({ length: count }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, size: Math.random() * 2.5 + 0.8, alpha: Math.random() * 0.35 + 0.1 })); if (interactive) { canvas.addEventListener('mousemove', (e) => { const rect = canvas.getBoundingClientRect(); mx = e.clientX - rect.left; my = e.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mx = -1000; my = -1000; }); } (function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { if (interactive) { const dx = p.x - mx, dy = p.y - my, dist = Math.sqrt(dx * dx + dy * dy); if (dist < 120) { const force = (120 - dist) / 120 * 2; p.vx += (dx / dist) * force * 0.1; p.vy += (dy / dist) * force * 0.1; } } p.vx *= 0.98; p.vy *= 0.98; p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0; if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha})`; ctx.fill(); }); requestAnimationFrame(animate); })(); };
+document.querySelectorAll('.particle-canvas').forEach(c => window.initParticles(c, { interactive: true, count: 55 }));
+document.querySelectorAll('.particle-canvas-ambient').forEach(c => window.initParticles(c, { interactive: false, count: 18 }));
+animateSlide(document.querySelector('.slide.active'));
+</script>
+</body>
+</html>
