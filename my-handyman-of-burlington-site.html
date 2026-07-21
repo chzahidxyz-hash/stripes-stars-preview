@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Handyman of Burlington | Licensed Home Repair &amp; Carpentry</title>
+<meta name="description" content="Licensed, insured handyman services in Burlington, Ontario. Drywall, painting, carpentry, decks, TV mounting, and more. Free estimates." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#181511;
+    --blueprint:#20395C;
+    --blueprint-deep:#142640;
+    --canvas:#EFE8D8;
+    --paper:#FBF8F1;
+    --safety:#C9611E;
+    --safety-dark:#A34E18;
+    --steel:#5B6169;
+    --line:#C7BC9F;
+    --line-on-dark:rgba(239,232,216,0.28);
+    --ok:#3E6B4F;
+    --max-w:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--canvas);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',system-ui,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    line-height:1.05;
+    margin:0;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--safety);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:20px;height:1px;
+    background:var(--safety);
+    display:inline-block;
+  }
+
+  /* ---------- Ruler divider (signature element) ---------- */
+  .ruler{
+    position:relative;
+    height:34px;
+    margin:0 auto;
+    max-width:var(--max-w);
+    padding:0 28px;
+  }
+  .ruler svg{width:100%;height:100%;display:block;}
+  .ruler .tick-major{stroke:var(--steel);stroke-width:1.4;}
+  .ruler .tick-minor{stroke:var(--line);stroke-width:1;}
+  .ruler text{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--steel);}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(239,232,216,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:16px;padding-bottom:16px;
+  }
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;}
+  .brand-mark{width:38px;height:38px;flex-shrink:0;}
+  .brand-word{font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;text-transform:uppercase;letter-spacing:0.01em;}
+  .brand-word span{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--safety);text-transform:uppercase;font-weight:500;margin-top:1px;}
+  .nav-links{display:flex;gap:30px;list-style:none;margin:0;padding:0;}
+  .nav-links a{
+    text-decoration:none;font-size:14px;font-weight:500;color:var(--ink);
+    position:relative;padding-bottom:3px;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--safety);
+    transition:width .2s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  .nav-phone{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:7px;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;
+    padding:11px 20px;border-radius:2px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid transparent;cursor:pointer;
+  }
+  .btn-primary{background:var(--safety);color:var(--paper);}
+  .btn-primary:hover{background:var(--safety-dark);}
+  .btn-outline{background:transparent;border-color:var(--ink);color:var(--ink);}
+  .btn-outline:hover{background:var(--ink);color:var(--paper);}
+  .btn-ondark{border-color:var(--line-on-dark);color:var(--canvas);}
+  .btn-ondark:hover{background:rgba(239,232,216,0.1);}
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+  .menu-toggle svg{width:24px;height:24px;stroke:var(--ink);}
+
+  /* ---------- Hero: "Job Ticket" ---------- */
+  .hero{background:var(--blueprint);color:var(--canvas);position:relative;overflow:hidden;padding:64px 0 0;}
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:50px;align-items:stretch;
+    max-width:var(--max-w);margin:0 auto;padding:0 28px 0;
+  }
+  .ticket{
+    border:1.5px dashed var(--line-on-dark);
+    padding:34px 36px 40px;
+    position:relative;
+  }
+  .ticket::before,.ticket::after{
+    content:"";position:absolute;width:14px;height:14px;border-radius:50%;
+    background:var(--canvas);top:50%;transform:translateY(-50%);
+  }
+  .ticket::before{left:-7px;}
+  .ticket::after{right:-7px;}
+  .ticket-head{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.08em;
+    color:rgba(239,232,216,0.65);text-transform:uppercase;margin-bottom:26px;
+    border-bottom:1px solid var(--line-on-dark);padding-bottom:16px;
+  }
+  .hero h1{font-size:clamp(38px,4.6vw,58px);color:var(--paper);margin-bottom:20px;}
+  .hero h1 em{font-style:normal;color:var(--safety);}
+  .hero-sub{font-size:16.5px;line-height:1.65;color:rgba(239,232,216,0.82);max-width:46ch;margin-bottom:30px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px;}
+  .hero-stamps{display:flex;gap:26px;flex-wrap:wrap;border-top:1px solid var(--line-on-dark);padding-top:22px;}
+  .stamp{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:rgba(239,232,216,0.75);}
+  .stamp b{display:block;color:var(--paper);font-size:20px;font-family:'Oswald',sans-serif;font-weight:600;}
+
+  .blueprint-art{
+    border:1.5px dashed var(--line-on-dark);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;position:relative;
+  }
+  .blueprint-art svg{width:100%;height:auto;}
+
+  /* ---------- Trust strip ---------- */
+  .trust{background:var(--blueprint-deep);color:var(--canvas);padding:18px 0 26px;}
+  .trust .wrap{display:flex;gap:0;flex-wrap:wrap;}
+  .trust-item{
+    flex:1 1 200px;padding:10px 22px;border-left:1px solid var(--line-on-dark);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.03em;color:rgba(239,232,216,0.75);
+  }
+  .trust-item:first-child{border-left:none;}
+  .trust-item b{display:block;color:var(--paper);font-family:'Oswald',sans-serif;font-size:15px;text-transform:none;letter-spacing:0;margin-bottom:2px;}
+
+  /* ---------- Section shell ---------- */
+  section{padding:78px 0;}
+  .section-head{max-width:640px;margin-bottom:50px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,40px);margin-top:12px;}
+  .section-head p{font-size:15.5px;color:var(--steel);line-height:1.6;margin-top:14px;}
+
+  /* ---------- Services ---------- */
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .svc-card{
+    background:var(--paper);border:1px solid var(--line);position:relative;
+    padding:24px 20px 20px;display:flex;flex-direction:column;gap:14px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .svc-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(20,38,64,0.1);}
+  .svc-card .num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--steel);}
+  .svc-icon{width:34px;height:34px;color:var(--blueprint);}
+  .svc-card h3{font-size:16.5px;letter-spacing:0.01em;}
+  .svc-card p{font-size:13.6px;color:var(--steel);line-height:1.55;margin:0;flex-grow:1;}
+  .svc-price{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--blueprint);
+    border-top:1px dashed var(--line);padding-top:12px;display:flex;justify-content:space-between;align-items:center;
+  }
+  .svc-price .tag{background:var(--canvas);padding:3px 8px;border-radius:2px;font-size:10.5px;letter-spacing:0.06em;color:var(--safety);text-transform:uppercase;}
+
+  /* ---------- Process ---------- */
+  .process{background:var(--blueprint);color:var(--canvas);}
+  .process .section-head p{color:rgba(239,232,216,0.75);}
+  .process .eyebrow{color:var(--safety);}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+  .step{padding:0 30px 0 0;position:relative;}
+  .step:not(:last-child)::after{
+    content:"";position:absolute;right:0;top:8px;bottom:8px;width:1px;background:var(--line-on-dark);
+  }
+  .step .step-no{font-family:'IBM Plex Mono',monospace;font-size:34px;color:var(--safety);font-weight:600;display:block;margin-bottom:14px;}
+  .step h3{font-size:18px;color:var(--paper);margin-bottom:10px;}
+  .step p{font-size:14px;line-height:1.6;color:rgba(239,232,216,0.75);margin:0;}
+
+  /* ---------- Gallery ---------- */
+  .gal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .gal-card{background:var(--paper);border:1px solid var(--line);}
+  .gal-imgpair{display:grid;grid-template-columns:1fr 1fr;position:relative;}
+  .gal-imgpair img{height:170px;object-fit:cover;width:100%;}
+  .gal-imgpair span{
+    position:absolute;top:10px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;
+    background:var(--blueprint-deep);color:var(--canvas);padding:3px 8px;text-transform:uppercase;
+  }
+  .gal-imgpair .before-tag{left:10px;}
+  .gal-imgpair .after-tag{right:10px;background:var(--safety);}
+  .gal-body{padding:18px 20px 22px;}
+  .gal-body h3{font-size:15.5px;margin-bottom:8px;}
+  .gal-body p{font-size:13.4px;color:var(--steel);line-height:1.55;margin:0 0 12px;}
+  .gal-meta{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--steel);border-top:1px dashed var(--line);padding-top:10px;text-transform:uppercase;letter-spacing:0.04em;}
+
+  /* ---------- Reviews ---------- */
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .rev-card{background:var(--paper);border:1px solid var(--line);padding:26px 24px;display:flex;flex-direction:column;gap:14px;}
+  .rev-stars{color:var(--safety);font-size:14px;letter-spacing:2px;}
+  .rev-card p{font-size:14px;line-height:1.62;color:var(--ink);margin:0;flex-grow:1;}
+  .rev-who{font-size:12.5px;color:var(--steel);border-top:1px dashed var(--line);padding-top:12px;}
+  .rev-who b{color:var(--ink);font-weight:600;}
+
+  /* ---------- Service area ---------- */
+  .area-wrap{display:grid;grid-template-columns:0.9fr 1.1fr;gap:50px;align-items:center;}
+  .area-list{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;list-style:none;margin:0;padding:0;}
+  .area-list li{
+    font-size:14px;padding:10px 0;border-bottom:1px solid var(--line);
+    display:flex;justify-content:space-between;gap:10px;
+  }
+  .area-list li span{color:var(--steel);font-size:12.5px;font-family:'IBM Plex Mono',monospace;}
+
+  /* ---------- FAQ ---------- */
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;cursor:pointer;
+    padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;
+    font-family:'Oswald',sans-serif;font-size:16.5px;text-transform:none;letter-spacing:0;color:var(--ink);
+  }
+  .faq-q .plus{font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--safety);transition:transform .2s ease;flex-shrink:0;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-a p{font-size:14.3px;line-height:1.65;color:var(--steel);margin:0 0 22px;max-width:70ch;}
+
+  /* ---------- CTA / form ---------- */
+  .cta{background:var(--blueprint-deep);color:var(--canvas);}
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+  .cta h2{color:var(--paper);font-size:clamp(26px,3vw,36px);margin-bottom:16px;}
+  .cta p{font-size:15px;line-height:1.65;color:rgba(239,232,216,0.78);max-width:44ch;}
+  .cta-list{margin-top:26px;display:flex;flex-direction:column;gap:14px;}
+  .cta-list li{list-style:none;font-size:14px;display:flex;gap:10px;align-items:flex-start;color:rgba(239,232,216,0.85);}
+  .cta-list svg{width:16px;height:16px;color:var(--safety);flex-shrink:0;margin-top:2px;}
+
+  form{background:var(--paper);color:var(--ink);padding:32px;border:1px solid var(--line);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.full{grid-column:1/-1;}
+  label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--steel);}
+  input,select,textarea{
+    font-family:'Inter',sans-serif;font-size:14px;padding:10px 12px;border:1px solid var(--line);
+    background:var(--canvas);color:var(--ink);border-radius:2px;
+  }
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--blueprint);outline-offset:1px;}
+  textarea{resize:vertical;min-height:80px;}
+  .form-submit{width:100%;justify-content:center;margin-top:6px;}
+  .form-note{font-size:11.5px;color:var(--steel);margin-top:10px;text-align:center;}
+  .form-success{display:none;text-align:center;padding:40px 10px;}
+  .form-success.show{display:block;}
+  .form-success svg{width:44px;height:44px;color:var(--ok);margin:0 auto 16px;}
+  .form-success h3{font-size:19px;margin-bottom:8px;}
+  .form-success p{font-size:14px;color:var(--steel);}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink);color:rgba(239,232,216,0.6);padding:48px 0 26px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px;}
+  .foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .foot-brand span{font-family:'Oswald',sans-serif;color:var(--paper);font-size:16px;text-transform:uppercase;font-weight:600;}
+  footer h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(239,232,216,0.4);margin-bottom:14px;font-weight:500;}
+  footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;}
+  footer a{text-decoration:none;font-size:13.5px;color:rgba(239,232,216,0.68);}
+  footer a:hover{color:var(--safety);}
+  .foot-bottom{border-top:1px solid rgba(239,232,216,0.12);padding-top:22px;display:flex;justify-content:space-between;font-size:12px;color:rgba(239,232,216,0.4);}
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease, transform .55s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .blueprint-art{order:-1;padding:30px 20px;}
+    .svc-grid{grid-template-columns:repeat(2,1fr);}
+    .steps{grid-template-columns:1fr;gap:28px;}
+    .step:not(:last-child)::after{display:none;}
+    .rev-grid{grid-template-columns:1fr;}
+    .area-wrap{grid-template-columns:1fr;}
+    .cta-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:720px){
+    .nav-links{display:none;}
+    .menu-toggle{display:block;}
+    .nav-phone span{display:none;}
+    .trust .wrap{flex-direction:column;}
+    .trust-item{border-left:none;border-top:1px solid var(--line-on-dark);}
+    .trust-item:first-child{border-top:none;}
+    .svc-grid{grid-template-columns:1fr;}
+    .gal-grid{grid-template-columns:1fr;}
+    .area-list{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;gap:26px;}
+    .foot-bottom{flex-direction:column;gap:8px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="38" height="38" stroke="#20395C" stroke-width="1.4"/>
+        <path d="M12 27L26 13" stroke="#20395C" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M23 10L30 17" stroke="#C9611E" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="12" cy="27" r="2.4" fill="#20395C"/>
+      </svg>
+      <span class="brand-word">My Handyman<span>Burlington, Ontario</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Our Work</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#area">Service Area</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:9055550199" class="nav-phone">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#181511" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>905-555-0199</span>
+      </a>
+      <a href="#estimate" class="btn btn-primary">Free Estimate</a>
+      <button class="menu-toggle" aria-label="Menu" onclick="document.getElementById('mnav').classList.toggle('show')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+  <ul id="mnav" class="wrap" style="display:none;list-style:none;padding-bottom:16px;margin:0;flex-direction:column;gap:14px;">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Our Work</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#area">Service Area</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="padding-bottom:0;">
+    <div class="hero-grid">
+      <div class="ticket">
+        <div class="ticket-head">
+          <span>Work Order No. 04521</span>
+          <span>Burlington, ON — Est. Local</span>
+        </div>
+        <p class="eyebrow">Licensed &amp; Insured Since Day One</p>
+        <h1>Fix it once.<br>Fix it <em>right.</em></h1>
+        <p class="hero-sub">Drywall, painting, carpentry, decks, doors, and everything on the list you keep putting off — handled by one crew you can actually call back.</p>
+        <div class="hero-ctas">
+          <a href="#estimate" class="btn btn-primary">Request Free Estimate</a>
+          <a href="tel:9055550199" class="btn btn-ondark">Call 905-555-0199</a>
+        </div>
+        <div class="hero-stamps">
+          <div class="stamp"><b>$2M</b>Liability Coverage</div>
+          <div class="stamp"><b>WSIB</b>Registered Crew</div>
+          <div class="stamp"><b>1–2 HR</b>Quote Response</div>
+        </div>
+      </div>
+      <div class="blueprint-art">
+        <svg viewBox="0 0 340 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- simple house schematic -->
+          <path d="M40 190 L170 90 L300 190" stroke="#EFE8D8" stroke-width="1.6" opacity="0.85"/>
+          <path d="M60 190 V330 H280 V190" stroke="#EFE8D8" stroke-width="1.6" opacity="0.85"/>
+          <rect x="150" y="250" width="40" height="80" stroke="#EFE8D8" stroke-width="1.4" opacity="0.7"/>
+          <rect x="90" y="220" width="34" height="34" stroke="#EFE8D8" stroke-width="1.2" opacity="0.6"/>
+          <rect x="216" y="220" width="34" height="34" stroke="#EFE8D8" stroke-width="1.2" opacity="0.6"/>
+          <!-- dimension lines -->
+          <line x1="40" y1="345" x2="280" y2="345" stroke="#C9611E" stroke-width="1"/>
+          <line x1="40" y1="340" x2="40" y2="350" stroke="#C9611E" stroke-width="1"/>
+          <line x1="280" y1="340" x2="280" y2="350" stroke="#C9611E" stroke-width="1"/>
+          <text x="150" y="365" fill="#C9611E" font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="middle">24'-0"</text>
+          <line x1="305" y1="190" x2="305" y2="330" stroke="#C9611E" stroke-width="1"/>
+          <text x="315" y="265" fill="#C9611E" font-family="IBM Plex Mono, monospace" font-size="11" transform="rotate(90 315 265)">18'-0"</text>
+          <!-- callout marks -->
+          <circle cx="170" cy="90" r="4" fill="#C9611E"/>
+          <circle cx="107" cy="237" r="4" fill="#EFE8D8" opacity="0.9"/>
+          <circle cx="233" cy="237" r="4" fill="#EFE8D8" opacity="0.9"/>
+          <circle cx="170" cy="290" r="4" fill="#EFE8D8" opacity="0.9"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust">
+    <div class="wrap">
+      <div class="trust-item"><b>5.0 Average Rating</b>From verified customers</div>
+      <div class="trust-item"><b>Flat &amp; Hourly Pricing</b>$65–$95/hr, or fixed quotes</div>
+      <div class="trust-item"><b>Burlington-Based</b>Serving Halton &amp; Hamilton</div>
+      <div class="trust-item"><b>No Job Too Small</b>From a leaky faucet to a full reno list</div>
+    </div>
+  </div>
+
+  <!-- RULER -->
+  <div class="ruler"><svg viewBox="0 0 1180 34" preserveAspectRatio="none">
+    <line x1="0" y1="17" x2="1180" y2="17" class="tick-minor"/>
+    <script></script>
+  </svg></div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">The Full List</p>
+        <h2>Services &amp; Ballpark Pricing</h2>
+        <p>Every estimate is confirmed in writing before work starts — these ranges are here so you know what to expect walking in.</p>
+      </div>
+      <div class="svc-grid">
+
+        <div class="svc-card reveal">
+          <span class="num">01</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v18"/></svg>
+          <h3>Drywall Repair &amp; Patching</h3>
+          <p>Dents, doorknob holes, water stains, and settling cracks — patched, mudded, sanded, and texture-matched to disappear.</p>
+          <div class="svc-price"><span>$150–$450</span><span class="tag">Popular</span></div>
+        </div>
+
+        <div class="svc-card reveal">
+          <span class="num">02</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+          <h3>Interior Painting &amp; Touch-ups</h3>
+          <p>Accent walls, full rooms, trim, and ceilings — clean tape lines and floor protection on every job.</p>
+          <div class="svc-price"><span>$250–$900+</span><span class="tag">Per room</span></div>
+        </div>
+
+        <div class="svc-card reveal">
+          <span class="num">03</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="2" width="14" height="20" rx="1"/><circle cx="15" cy="12" r="1"/></svg>
+          <h3>Door Repair &amp; Installation</h3>
+          <p>Squeak fixes, frame realignment, new hardware, weatherstripping, and full door installs.</p>
+          <div class="svc-price"><span>$120–$350</span><span class="tag">Per door</span></div>
+        </div>
+
+        <div class="svc-card reveal">
+          <span class="num">04</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg>
+          <h3>TV Mounting &amp; Picture Hanging</h3>
+          <p>Stud-secured mounts with laser-level precision, plus hidden cord runs on request.</p>
+          <div class="svc-price"><span>$99–$199</span><span class="tag">Excl. mount</span></div>
+        </div>
+
+        <div class="svc-card reveal">
+          <span class="num">05</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M4 9h16M9 3v6"/></svg>
+          <h3>Furniture Assembly</h3>
+          <p>IKEA, Wayfair, and big-box builds done right — including anti-tip wall strapping.</p>
+          <div class="svc-price"><span>$80–$250</span><span class="tag">By item</span></div>
+        </div>
+
+        <div class="svc-card reveal">
+          <span class="num">06</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
+          <h3>Finish Carpentry &amp; Trim</h3>
+          <p>Custom shelving, crown molding, baseboards, and wainscoting — mitered clean.</p>
+          <div class="svc-price"><span>$300–$1,200+</span><span class="tag">Per linear ft</span></div>
+        </div>
+
+        <div class="svc-card reveal">
+          <span class="num">07</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 20h18M5 20V10l14-4v14M9 20v-6M13 20v-6"/></svg>
+          <h3>Deck &amp; Fence Repair</h3>
+          <p>Rotten board swaps, loose railing fixes, sagging gates, and post reinforcement.</p>
+          <div class="svc-price"><span>$200–$800</span><span class="tag">Per repair</span></div>
+        </div>
+
+        <div class="svc-card reveal">
+          <span class="num">08</span>
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M6 12V6a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v6M4 18h2M18 18h2"/></svg>
+          <h3>Minor Bathroom Repairs</h3>
+          <p>Re-caulking, faucet swaps, running toilets, and vanity or showerhead upgrades.</p>
+          <div class="svc-price"><span>$120–$400</span><span class="tag">Per fixture</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">How It Works</p>
+        <h2>Three Steps to Done</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <span class="step-no">01</span>
+          <h3>Tell us the job</h3>
+          <p>Call, fill out the form, or send a photo. We'll ask a few questions and give you a realistic price range on the spot.</p>
+        </div>
+        <div class="step reveal">
+          <span class="step-no">02</span>
+          <h3>Lock in a time</h3>
+          <p>We confirm scope and price in writing, then book a slot that works around your schedule — usually within the week.</p>
+        </div>
+        <div class="step reveal">
+          <span class="step-no">03</span>
+          <h3>Walk-through &amp; done</h3>
+          <p>We clean up after ourselves and walk the job with you before we leave. No surprises on the final bill.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK / GALLERY -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Recent Jobs</p>
+        <h2>Before &amp; After</h2>
+        <p>A sample of work from around Burlington — swap these in for your own project photos before this goes live.</p>
+      </div>
+      <div class="gal-grid">
+
+        <div class="gal-card reveal">
+          <div class="gal-imgpair">
+            <span class="before-tag mono">Before</span>
+            <span class="after-tag mono">After</span>
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=500" alt="Water-damaged ceiling before repair">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=500" alt="Repaired and painted ceiling after">
+          </div>
+          <div class="gal-body">
+            <h3>Kitchen Ceiling Water Damage</h3>
+            <p>Cut out wet sheetrock, added backing, installed mold-resistant drywall, then matched texture and paint across the full ceiling.</p>
+            <div class="gal-meta"><span>Drywall</span><span>1.5 Days</span></div>
+          </div>
+        </div>
+
+        <div class="gal-card reveal">
+          <div class="gal-imgpair">
+            <span class="before-tag mono">Before</span>
+            <span class="after-tag mono">After</span>
+            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=500" alt="Living room before accent wall">
+            <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=500" alt="Living room after board and batten accent wall">
+          </div>
+          <div class="gal-body">
+            <h3>Board &amp; Batten Accent Wall</h3>
+            <p>Custom horizontal panel wall built, sanded, primed, and finished in a rich navy — living room centerpiece.</p>
+            <div class="gal-meta"><span>Carpentry &amp; Paint</span><span>2 Days</span></div>
+          </div>
+        </div>
+
+        <div class="gal-card reveal">
+          <div class="gal-imgpair">
+            <span class="before-tag mono">Before</span>
+            <span class="after-tag mono">After</span>
+            <img src="https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?auto=format&fit=crop&q=80&w=500" alt="Weathered deck before restoration">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=500" alt="Restored deck after repair">
+          </div>
+          <div class="gal-body">
+            <h3>Deck Board &amp; Railing Restoration</h3>
+            <p>Twelve warped boards replaced, joist tape added for longevity, and loose balusters re-secured for safety.</p>
+            <div class="gal-meta"><span>Exterior</span><span>1 Day</span></div>
+          </div>
+        </div>
+
+        <div class="gal-card reveal">
+          <div class="gal-imgpair">
+            <span class="before-tag mono">Before</span>
+            <span class="after-tag mono">After</span>
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=500" alt="Home office before TV mounting">
+            <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&q=80&w=500" alt="Home office after floating TV mount">
+          </div>
+          <div class="gal-body">
+            <h3>Floating TV Mount, Cords Hidden</h3>
+            <p>75" OLED mounted to studs with all low-voltage cable chased in-wall for a completely wire-free look.</p>
+            <div class="gal-meta"><span>Installation</span><span>2 Hours</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" style="background:var(--paper);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Word Around The Neighborhood</p>
+        <h2>What Customers Say</h2>
+        <p>Sample testimonials shown here for layout — replace with your own verified reviews before publishing.</p>
+      </div>
+      <div class="rev-grid">
+        <div class="rev-card reveal">
+          <div class="rev-stars">★★★★★</div>
+          <p>"Hired them to fix a large water-damaged patch in the kitchen ceiling and paint the room. Absolutely flawless — you'd never know there was a leak."</p>
+          <div class="rev-who"><b>Sarah J.</b> — Millcroft</div>
+        </div>
+        <div class="rev-card reveal">
+          <div class="rev-stars">★★★★★</div>
+          <p>"Two 65" TVs mounted and dressers assembled same afternoon. Perfect alignment, cords hidden, fair pricing. Already booked them again for deck repairs."</p>
+          <div class="rev-who"><b>Mark H.</b> — Alton Village</div>
+        </div>
+        <div class="rev-card reveal">
+          <div class="rev-stars">★★★★★</div>
+          <p>"Our fence gate sagged for two years. Honest flat-rate quote, fixed the next morning. Friendly crew, excellent work."</p>
+          <div class="rev-who"><b>Elena R.</b> — Roseland</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREA -->
+  <section id="area">
+    <div class="wrap">
+      <div class="area-wrap">
+        <div class="reveal">
+          <p class="eyebrow">Where We Work</p>
+          <h2 style="font-size:clamp(26px,3vw,36px);margin:12px 0 16px;">Proudly Serving Burlington &amp; Halton</h2>
+          <p style="color:var(--steel);font-size:15px;line-height:1.65;">Based in Burlington, we regularly travel to Oakville, Hamilton, Waterdown, and Milton for larger projects. If you're not sure we cover your street, just ask.</p>
+          <div style="margin-top:24px;"><a href="#estimate" class="btn btn-outline">Check My Address</a></div>
+        </div>
+        <ul class="area-list reveal">
+          <li>Millcroft <span>Golf community</span></li>
+          <li>Alton Village <span>Modern family homes</span></li>
+          <li>Roseland <span>Historic homes</span></li>
+          <li>Aldershot <span>Lakeshore</span></li>
+          <li>The Orchard <span>Deck &amp; fence work</span></li>
+          <li>Headon Forest <span>Mature-tree lots</span></li>
+          <li>Tyandaga <span>Wooded ravines</span></li>
+          <li>Brant Hills <span>Split-levels</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULER -->
+  <div class="ruler"><svg viewBox="0 0 1180 34" preserveAspectRatio="none"><line x1="0" y1="17" x2="1180" y2="17" class="tick-minor"/></svg></div>
+
+  <!-- FAQ -->
+  <section id="faq" style="background:var(--paper);">
+    <div class="wrap" style="max-width:820px;">
+      <div class="section-head reveal">
+        <p class="eyebrow">Good To Know</p>
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <div class="reveal">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Hourly or flat-rate pricing?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Both. Straightforward jobs like TV mounting or a standard drywall patch get a transparent flat rate. Bigger or custom projects are billed hourly at $65–$95, with a time estimate given upfront so nothing is a surprise.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Are you licensed and insured?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes — $2M commercial general liability coverage, with all workers covered under WSIB Ontario. Full peace of mind whether we're in your home or a commercial space.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Is there a minimum service call fee?<span class="plus">+</span></button>
+          <div class="faq-a"><p>A standard $99 minimum covers the first hour of diagnostics or minor labour — it keeps our rates competitive while covering travel and setup.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">What areas do you cover?<span class="plus">+</span></button>
+          <div class="faq-a"><p>All of Burlington — Alton Village, Millcroft, Roseland, Aldershot, Tyandaga, Headon Forest, and The Orchard among them — plus Oakville, Waterdown, Hamilton, and Milton for larger jobs.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">How fast will I hear back on a quote?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Within 1–2 hours during business hours, whether you use the form below, call, or reach us through the site.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / ESTIMATE FORM -->
+  <section class="cta" id="estimate">
+    <div class="wrap">
+      <div class="cta-grid">
+        <div class="reveal">
+          <p class="eyebrow">Request A Free Estimate</p>
+          <h2>Let's put it on the work order.</h2>
+          <p>Tell us what needs fixing and we'll follow up with a real quote — not a guess — inside 1–2 business hours.</p>
+          <ul class="cta-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>No-obligation, written estimate</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Same crew from quote to finish</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Prefer to talk it through? Call 905-555-0199</li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <form id="estimateForm" onsubmit="return submitEstimate(event)">
+            <div class="form-row">
+              <div class="field"><label for="name">Full name *</label><input id="name" required placeholder="Jane Smith"></div>
+              <div class="field"><label for="phone">Phone *</label><input id="phone" required placeholder="905-555-0123"></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label for="email">Email *</label><input id="email" type="email" required placeholder="you@email.com"></div>
+              <div class="field"><label for="project">Project type *</label>
+                <select id="project" required>
+                  <option value="">Select one</option>
+                  <option>Drywall Repair</option>
+                  <option>Painting</option>
+                  <option>Door Repair</option>
+                  <option>TV Mounting</option>
+                  <option>Furniture Assembly</option>
+                  <option>Carpentry &amp; Trim</option>
+                  <option>Deck &amp; Fence</option>
+                  <option>Bathroom Repair</option>
+                  <option>Something else</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field full"><label for="address">Property address</label><input id="address" placeholder="Street, Burlington ON"></div>
+            </div>
+            <div class="form-row">
+              <div class="field full"><label for="message">Job details</label><textarea id="message" placeholder="What needs fixing?"></textarea></div>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Send Request</button>
+            <p class="form-note">We reply within 1–2 business hours, Mon–Sat.</p>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg>
+            <h3>Request received.</h3>
+            <p>A Burlington specialist will follow up shortly. For anything urgent, call 905-555-0199.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <svg width="30" height="30" viewBox="0 0 40 40" fill="none"><rect x="1" y="1" width="38" height="38" stroke="#EFE8D8" stroke-width="1.2" opacity="0.4"/><path d="M12 27L26 13" stroke="#EFE8D8" stroke-width="2.2" stroke-linecap="round"/><path d="M23 10L30 17" stroke="#C9611E" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <span>My Handyman of Burlington</span>
+        </div>
+        <p style="font-size:13.5px;line-height:1.6;max-width:32ch;">Licensed, insured handyman services across Burlington and the Halton region.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Drywall &amp; Painting</a></li>
+          <li><a href="#services">Carpentry &amp; Trim</a></li>
+          <li><a href="#services">Decks &amp; Fences</a></li>
+          <li><a href="#services">Installations</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#work">Our Work</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#area">Service Area</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:9055550199">905-555-0199</a></li>
+          <li><a href="mailto:hello@myhandymanburlington.ca">hello@myhandymanburlington.ca</a></li>
+          <li>Burlington, Ontario</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 My Handyman of Burlington. All rights reserved.</span>
+      <span>Licensed &amp; Insured — WSIB Registered</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav
+  document.querySelectorAll('#mnav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mnav').classList.remove('show')));
+  document.getElementById('mnav').style.setProperty('display','none');
+  const mnavEl = document.getElementById('mnav');
+  const origToggle = document.querySelector('.menu-toggle');
+  origToggle.addEventListener('click', ()=>{
+    mnavEl.style.display = (mnavEl.style.display === 'none' || !mnavEl.style.display) ? 'flex' : 'none';
+  });
+
+  // FAQ accordion
+  function toggleFaq(btn){
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i=>{
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  // Estimate form (front-end only demo)
+  function submitEstimate(e){
+    e.preventDefault();
+    document.getElementById('estimateForm').style.display='none';
+    document.getElementById('formSuccess').classList.add('show');
+    return false;
+  }
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Ruler ticks (generated for crisp scaling)
+  document.querySelectorAll('.ruler svg').forEach(svg=>{
+    const w = 1180;
+    let ticks = '';
+    for(let x=0; x<=w; x+=20){
+      const major = x % 100 === 0;
+      ticks += `<line x1="${x}" y1="${major?4:11}" x2="${x}" y2="17" class="${major?'tick-major':'tick-minor'}"/>`;
+      if(major) ticks += `<text x="${x+4}" y="30">${x/20}"</text>`;
+    }
+    svg.insertAdjacentHTML('beforeend', ticks);
+  });
+</script>
+
+</body>
+</html>
